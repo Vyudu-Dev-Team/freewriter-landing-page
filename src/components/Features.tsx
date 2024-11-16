@@ -36,7 +36,7 @@ const features: Feature[] = [
   {
     title: 'CREATIVE UNBLOCKING',
     Icon: Zap,
-    description: 'Never face writer's block again with AI-powered prompts and creative exercises.',
+    description: 'Never face writer\'s block again with AI-powered prompts and creative exercises.',
     highlight: 'Reduce blocks by 80%'
   },
   {
