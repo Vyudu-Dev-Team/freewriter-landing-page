@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
       {/* Main Title */}
       <div className="w-full text-center mb-16">
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
-          <h1 className="font-pixelsplitter text-7xl md:text-8xl lg:text-9xl text-primary-lime mb-4 cyber-glitch relative">
+          <h1 className="font-pixelsplitter font-bold text-7xl md:text-8xl lg:text-9xl text-primary-lime mb-4 cyber-glitch relative">
             FreeWriter
             <div className="absolute -inset-1 bg-primary-purple/20 -z-10 blur-lg"></div>
           </h1>

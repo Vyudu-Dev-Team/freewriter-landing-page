@@ -1,8 +1,17 @@
+/* Main title font */
 @font-face {
-  font-family: 'Pixelsplitter';
+  font-family: 'PixelSplitter';
+  src: url('/fonts/PixelSplitter-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Regular font for other elements */
+@font-face {
+  font-family: 'PixelSplitter';
   src: url('/fonts/pixelsplitter.woff2') format('woff2'),
-       url('/fonts/pixelsplitter-regular.woff2') format('woff2'),
-       url('/fonts/pixelsplitter-bold.ttf') format('truetype');
+       url('/fonts/pixelsplitter-regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
