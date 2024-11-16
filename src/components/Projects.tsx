@@ -60,15 +60,13 @@ const FeaturePreview: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <ScrollAnimationWrapper animation="fadeUp">
-            <GlitchText
-              text="ELEVATE YOUR WRITING WITH AI"
-              className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch"
-              delay={0.2}
-            />
+            <h2 className="font-pixel font-bold text-4xl text-primary-lime mb-6">
+              ELEVATE YOUR WRITING WITH AI
+            </h2>
           </ScrollAnimationWrapper>
           
           <ScrollAnimationWrapper animation="fadeUp" delay={0.3}>
-            <p className="text-xl text-support-gray max-w-3xl mx-auto">
+            <p className="font-sans text-lg text-support-gray max-w-3xl mx-auto">
               Discover how FreeWriter's AI-powered features transform your writing process into an 
               engaging and productive experience.
             </p>
@@ -104,11 +102,11 @@ const FeaturePreview: React.FC = () => {
                       <div className="w-10 h-10 rounded-lg bg-primary-purple/20 flex items-center justify-center pixel-border">
                         <IconComponent className="w-6 h-6 text-primary-lime" />
                       </div>
-                      <h3 className="font-pixelsplitter text-xl text-primary-lime cyber-glitch">
+                      <h3 className="font-sans font-bold text-3xl text-primary-lime cyber-glitch">
                         {feature.title}
                       </h3>
                     </div>
-                    <p className="text-lg text-support-gray">
+                    <p className="font-sans text-lg text-support-gray">
                       {feature.description}
                     </p>
                   </div>

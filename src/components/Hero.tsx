@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
       {/* Main Title */}
       <div className="w-full text-center mb-16">
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
-          <h1 className="font-pixel font-bold text-7xl md:text-8xl lg:text-9xl text-primary-lime mb-4 cyber-glitch relative">
+          <h1 className="font-pixel font-bold text-4xl text-primary-lime mb-4 cyber-glitch relative">
             FreeWriter
             <div className="absolute -inset-1 bg-primary-purple/20 -z-10 blur-lg"></div>
           </h1>
@@ -30,9 +30,16 @@ const Hero: React.FC = () => {
 
           {/* Subheading */}
           <ScrollAnimationWrapper animation="fadeUp" delay={0.4}>
-            <h2 className="text-xl md:text-2xl text-support-gray mb-8">
+            <h2 className="font-sans font-bold text-3xl text-support-gray mb-8">
               Experience the future of writing with AI-powered assistance
             </h2>
+          </ScrollAnimationWrapper>
+
+          {/* Body Text */}
+          <ScrollAnimationWrapper animation="fadeUp" delay={0.6}>
+            <p className="font-sans text-lg text-support-gray mb-12">
+              Transform your writing process into an engaging and productive experience with our AI companion.
+            </p>
           </ScrollAnimationWrapper>
 
           {/* Feature Cards */}
