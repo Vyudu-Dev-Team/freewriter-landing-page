@@ -35,8 +35,8 @@ const Contact: React.FC = () => {
             viewport={{ once: true }}
             className="angled-section bg-primary-lime/10 p-12"
           >
-            <h2 className="font-pixel text-4xl text-primary-lime mb-8">JOIN OUR COMMUNITY</h2>
-            <p className="text-xl text-support-gray mb-8">OVER 1M WRITER MEMBERS AND COUNTING</p>
+            <h2 className="h2 text-primary-lime mb-8">JOIN OUR COMMUNITY</h2>
+            <p className="body-text text-support-gray mb-8">OVER 1M WRITER MEMBERS AND COUNTING</p>
             <div className="flex gap-6 flex-wrap">
               {socialLinks.map((social) => (
                 <motion.a
@@ -58,7 +58,7 @@ const Contact: React.FC = () => {
             viewport={{ once: true }}
             className="angled-section bg-support-white/5 p-12"
           >
-            <h2 className="font-pixel text-4xl text-primary-lime mb-8">BE THE FIRST TO KNOW</h2>
+            <h2 className="h2 text-primary-lime mb-8">BE THE FIRST TO KNOW</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <input
@@ -66,7 +66,7 @@ const Contact: React.FC = () => {
                   name="email"
                   placeholder="Email"
                   required
-                  className="w-full bg-support-black/50 border border-primary-purple/30 p-4 text-support-white focus:border-primary-lime outline-none transition-colors duration-300"
+                  className="w-full bg-support-black/50 border border-primary-purple/30 p-4 text-support-white focus:border-primary-lime outline-none transition-colors duration-300 body-text"
                 />
               </div>
               <motion.button

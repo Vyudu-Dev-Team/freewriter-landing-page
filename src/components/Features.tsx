@@ -25,7 +25,7 @@ const features = [
   }
 ];
 
-export default function Features() {
+const Features: React.FC = () => {
   return (
     <section className="py-32">
       <div className="container mx-auto px-4">
@@ -44,10 +44,10 @@ export default function Features() {
                   <feature.icon className="w-8 h-8 text-primary-lime" />
                 </div>
                 <div>
-                  <h2 className="font-pixel text-4xl text-primary-lime mb-4">
+                  <h2 className="h2 text-primary-lime mb-4">
                     {feature.title}
                   </h2>
-                  <p className="text-lg text-support-gray font-sans">
+                  <p className="body-text text-support-gray">
                     {feature.description}
                   </p>
                 </div>
@@ -58,4 +58,6 @@ export default function Features() {
       </div>
     </section>
   );
-}
+};
+
+export default Features;

@@ -2,7 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  links: {
+    live: string;
+    github: string;
+  };
+}
+
+const projects: Project[] = [
   {
     title: 'CYBER NEXUS',
     description: 'A futuristic writing platform with AI integration',
@@ -35,66 +46,68 @@ const projects = [
   }
 ];
 
-export default function Projects() {
+const Projects: React.FC = () => {
   return (
     <section id="projects" className="py-32 relative">
       <div className="container mx-auto px-4">
-        <motion.h2
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="font-pixel text-5xl text-primary-lime mb-16 text-center"
+          className="h1 text-primary-lime mb-16 text-center"
         >
           FEATURED PROJECTS
-        </motion.h2>
+        </motion.h1>
         <div className="grid gap-16">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="group relative"
+              className="angled-section bg-support-black/80 overflow-hidden group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative overflow-hidden angled-section bg-support-black/80">
-                <div className="grid md:grid-cols-2 gap-8 p-8">
-                  <div className="space-y-6">
-                    <h3 className="font-pixel text-4xl text-primary-lime">{project.title}</h3>
-                    <p className="text-lg text-support-gray">{project.description}</p>
-                    <div className="flex flex-wrap gap-3">
-                      {project.tags.map(tag => (
-                        <span key={tag} className="px-3 py-1 bg-primary-purple/30 text-primary-lime text-sm rounded-full">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex gap-4">
-                      <motion.a
-                        href={project.links.live}
-                        whileHover={{ scale: 1.05 }}
-                        className="flex items-center gap-2 text-primary-lime hover:text-primary-purple transition-colors"
-                      >
-                        <ExternalLink size={20} />
-                        <span>Live Demo</span>
-                      </motion.a>
-                      <motion.a
-                        href={project.links.github}
-                        whileHover={{ scale: 1.05 }}
-                        className="flex items-center gap-2 text-primary-lime hover:text-primary-purple transition-colors"
-                      >
-                        <Github size={20} />
-                        <span>Source Code</span>
-                      </motion.a>
-                    </div>
-                  </div>
-                  <div className="relative aspect-video overflow-hidden rounded-lg">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-support-black/80 to-transparent" />
-                  </div>
+              <div className="relative aspect-video overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-support-black to-transparent" />
+              </div>
+              <div className="p-8 relative">
+                <h2 className="h2 text-primary-lime mb-4">
+                  {project.title}
+                </h2>
+                <p className="body-text text-support-gray mb-6">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.map(tag => (
+                    <span
+                      key={tag}
+                      className="body-text px-3 py-1 bg-primary-purple/20 text-primary-lime rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-4">
+                  <motion.a
+                    href={project.links.live}
+                    className="flex items-center gap-2 text-primary-lime hover:text-primary-purple transition-colors duration-300"
+                    whileHover={{ x: 5 }}
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    <span className="body-text">View Live</span>
+                  </motion.a>
+                  <motion.a
+                    href={project.links.github}
+                    className="flex items-center gap-2 text-primary-lime hover:text-primary-purple transition-colors duration-300"
+                    whileHover={{ x: 5 }}
+                  >
+                    <Github className="w-5 h-5" />
+                    <span className="body-text">Source Code</span>
+                  </motion.a>
                 </div>
               </div>
             </motion.div>
@@ -103,4 +116,6 @@ export default function Projects() {
       </div>
     </section>
   );
-}
+};
+
+export default Projects;

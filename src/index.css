@@ -11,13 +11,28 @@
     font-display: swap;
   }
 
+  /* Import Quicksand font from Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
   html {
     scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-support-black text-support-white cursor-none;
+    @apply bg-support-black text-support-white cursor-none font-sans text-lg;
     image-rendering: pixelated;
+  }
+
+  h1, .h1 {
+    @apply font-pixel text-[44px] leading-tight;
+  }
+
+  h2, .h2 {
+    @apply font-sans font-bold text-[32px] leading-tight;
+  }
+
+  p, .body-text {
+    @apply font-sans text-[18px] leading-relaxed;
   }
 
   ::-webkit-scrollbar {

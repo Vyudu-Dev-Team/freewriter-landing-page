@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Code2, Send } from 'lucide-react';
 
-export default function Hero() {
+const Hero: React.FC = () => {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
@@ -15,16 +15,16 @@ export default function Hero() {
         style={{ y }}
         className="text-center relative z-20"
       >
-        <h1 className="font-pixel text-[64px] font-normal mb-6 text-primary-lime crt-flicker tracking-[0.2em] uppercase leading-none">
+        <h1 className="h1 text-primary-lime crt-flicker tracking-[0.2em] uppercase leading-none mb-6">
           FREE<br />WRITER
         </h1>
-        <p className="font-sans text-xl font-bold text-primary-purple mb-8">
+        <p className="h2 text-primary-purple mb-8">
           Crafting Digital Experiences with a Retro Touch
         </p>
         <div className="flex gap-6 justify-center">
           <motion.a
             href="#projects"
-            className="pixel-corners bg-primary-purple text-primary-lime px-6 py-3 text-lg font-pixel hover:bg-primary-lime hover:text-primary-purple transition-colors duration-300"
+            className="pixel-corners bg-primary-purple text-primary-lime px-6 py-3 font-pixel hover:bg-primary-lime hover:text-primary-purple transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -33,7 +33,7 @@ export default function Hero() {
           </motion.a>
           <motion.a
             href="#contact"
-            className="pixel-corners bg-primary-lime text-primary-purple px-6 py-3 text-lg font-pixel hover:bg-primary-purple hover:text-primary-lime transition-colors duration-300"
+            className="pixel-corners bg-primary-lime text-primary-purple px-6 py-3 font-pixel hover:bg-primary-purple hover:text-primary-lime transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -44,4 +44,6 @@ export default function Hero() {
       </motion.div>
     </section>
   );
-}
+};
+
+export default Hero;
