@@ -24,7 +24,7 @@ const features: Feature[] = [
   },
   {
     title: 'Smart Writing Frameworks',
-    description: 'Access intelligent frameworks that adapt to your writing style and goals, whether you're crafting a story, article, or business document.',
+    description: 'Access intelligent frameworks that adapt to your writing style and goals, whether you\'re crafting a story, article, or business document.',
     Icon: Sparkles,
     demo: '/frameworks-preview.jpg'
   },
