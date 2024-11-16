@@ -2,10 +2,21 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { ScrollAnimationWrapper, GlitchText, CyberCard } from './ScrollAnimations';
+import '../styles/fonts.css';
 
 const Hero: React.FC = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
+    <section className="min-h-screen flex flex-col items-center justify-start relative overflow-hidden py-20">
+      {/* Main Title */}
+      <div className="w-full text-center mb-16">
+        <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
+          <h1 className="font-pixelsplitter text-7xl md:text-8xl lg:text-9xl text-primary-lime mb-4 cyber-glitch relative">
+            FreeWriter
+            <div className="absolute -inset-1 bg-primary-purple/20 -z-10 blur-lg"></div>
+          </h1>
+        </ScrollAnimationWrapper>
+      </div>
+
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Heading */}
