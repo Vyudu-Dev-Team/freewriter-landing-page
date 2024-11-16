@@ -11,8 +11,12 @@
     font-display: swap;
   }
 
-  /* Import Quicksand font from Google Fonts */
   @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+  :root {
+    --pixel-size: 2px;
+    --grid-color: rgba(73, 11, 244, 0.05);
+  }
 
   html {
     scroll-behavior: smooth;
@@ -21,6 +25,11 @@
   body {
     @apply bg-support-black text-support-white cursor-none font-sans text-lg;
     image-rendering: pixelated;
+    background-image: 
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 32px 32px;
+    perspective: 1000px;
   }
 
   h1, .h1 {
@@ -37,6 +46,123 @@
 
   ::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@layer components {
+  .pixel-border {
+    box-shadow: 
+      var(--pixel-size) var(--pixel-size) 0 0 theme('colors.primary.purple'),
+      calc(var(--pixel-size) * -1) calc(var(--pixel-size) * -1) 0 0 theme('colors.primary.lime');
+    transition: all 0.2s ease;
+  }
+
+  .pixel-border:hover {
+    transform: translate(calc(var(--pixel-size) * -1), calc(var(--pixel-size) * -1));
+    box-shadow: 
+      calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 2) 0 0 theme('colors.primary.purple'),
+      calc(var(--pixel-size) * -2) calc(var(--pixel-size) * -2) 0 0 theme('colors.primary.lime');
+  }
+
+  .cyber-glitch {
+    position: relative;
+    text-shadow: 
+      0.05em 0 0 theme('colors.primary.purple'),
+      -0.025em -0.05em 0 theme('colors.primary.lime'),
+      0.025em 0.05em 0 theme('colors.secondary.blue');
+    animation: glitch 500ms infinite;
+  }
+
+  .retro-card {
+    @apply bg-support-black/80 backdrop-blur-sm;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 30px),
+      calc(100% - 30px) 100%,
+      0 100%
+    );
+    border: 1px solid theme('colors.primary.purple');
+    box-shadow: 
+      inset 0 0 20px theme('colors.primary.purple'),
+      0 0 20px theme('colors.primary.purple');
+    transform-style: preserve-3d;
+  }
+
+  .retro-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      transparent 50%,
+      theme('colors.primary.purple/20') 50%
+    );
+    background-size: 100% 4px;
+    animation: scan 4s linear infinite;
+  }
+
+  .floating-3d {
+    transform-style: preserve-3d;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+    transition: transform 0.3s ease;
+  }
+
+  .floating-3d:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+  }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 
+      0.05em 0 0 theme('colors.primary.purple'),
+      -0.025em -0.05em 0 theme('colors.primary.lime'),
+      0.025em 0.05em 0 theme('colors.secondary.blue');
+  }
+  14% {
+    text-shadow: 
+      0.05em 0 0 theme('colors.primary.purple'),
+      -0.025em -0.05em 0 theme('colors.primary.lime'),
+      0.025em 0.05em 0 theme('colors.secondary.blue');
+  }
+  15% {
+    text-shadow: 
+      -0.05em -0.025em 0 theme('colors.primary.purple'),
+      0.025em 0.025em 0 theme('colors.primary.lime'),
+      -0.05em -0.05em 0 theme('colors.secondary.blue');
+  }
+  49% {
+    text-shadow: 
+      -0.05em -0.025em 0 theme('colors.primary.purple'),
+      0.025em 0.025em 0 theme('colors.primary.lime'),
+      -0.05em -0.05em 0 theme('colors.secondary.blue');
+  }
+  50% {
+    text-shadow: 
+      0.025em 0.05em 0 theme('colors.primary.purple'),
+      0.05em 0 0 theme('colors.primary.lime'),
+      0 -0.05em 0 theme('colors.secondary.blue');
+  }
+  99% {
+    text-shadow: 
+      0.025em 0.05em 0 theme('colors.primary.purple'),
+      0.05em 0 0 theme('colors.primary.lime'),
+      0 -0.05em 0 theme('colors.secondary.blue');
+  }
+  100% {
+    text-shadow: 
+      -0.025em 0 0 theme('colors.primary.purple'),
+      -0.025em -0.025em 0 theme('colors.primary.lime'),
+      -0.025em -0.05em 0 theme('colors.secondary.blue');
+  }
+}
+
+@keyframes scan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 100%;
   }
 }
 
