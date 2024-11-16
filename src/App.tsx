@@ -7,7 +7,7 @@ import Hero from './components/Hero';
 import Sections from './components/Sections';
 import Contact from './components/Contact';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="min-h-screen overflow-hidden relative font-sans">
       <Background />
