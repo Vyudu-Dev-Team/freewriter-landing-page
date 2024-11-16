@@ -13,34 +13,41 @@ const mainFeature = {
   ]
 };
 
-const features = [
+interface Feature {
+  title: string;
+  Icon: React.ElementType;
+  description: string;
+  highlight: string;
+}
+
+const features: Feature[] = [
   {
     title: 'GAMIFIED WRITING',
-    icon: GamepadIcon,
+    Icon: GamepadIcon,
     description: 'Turn writing into an engaging game with rewards, achievements, and progress tracking.',
     highlight: 'Boost motivation by 3x'
   },
   {
     title: 'STORYTELLING MASTERY',
-    icon: MessageSquare,
+    Icon: MessageSquare,
     description: 'Learn professional storytelling techniques through interactive exercises and feedback.',
     highlight: 'Improve engagement by 75%'
   },
   {
     title: 'CREATIVE UNBLOCKING',
-    icon: Zap,
+    Icon: Zap,
     description: 'Never face writer's block again with AI-powered prompts and creative exercises.',
     highlight: 'Reduce blocks by 80%'
   },
   {
     title: 'FOCUS ENHANCEMENT',
-    icon: Brain,
+    Icon: Brain,
     description: 'Stay in the flow with our ADHD-friendly interface and immediate reward system.',
     highlight: 'Double your focus time'
   },
   {
     title: 'VIBRANT COMMUNITY',
-    icon: Users,
+    Icon: Users,
     description: 'Join thousands of writers sharing feedback, tips, and success stories.',
     highlight: '50K+ active writers'
   }
@@ -127,39 +134,42 @@ const Features: React.FC = () => {
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              className="floating-3d"
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={cardVariants}
-              custom={index}
-            >
-              <div className="retro-card p-8 h-full relative overflow-hidden group">
-                <div className="relative z-10">
-                  <div className="pixel-border w-16 h-16 bg-primary-purple rounded-lg flex items-center justify-center mb-6">
-                    <feature.icon className="w-8 h-8 text-primary-lime" />
+          {features.map((feature, index) => {
+            const IconComponent = feature.Icon;
+            return (
+              <motion.div
+                key={feature.title}
+                className="floating-3d"
+                initial="offscreen"
+                whileInView="onscreen"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={cardVariants}
+                custom={index}
+              >
+                <div className="retro-card p-8 h-full relative overflow-hidden group">
+                  <div className="relative z-10">
+                    <div className="pixel-border w-16 h-16 bg-primary-purple rounded-lg flex items-center justify-center mb-6">
+                      <IconComponent className="w-8 h-8 text-primary-lime" />
+                    </div>
+                    
+                    <div className="absolute top-4 right-4 px-3 py-1 bg-primary-lime/10 rounded-full">
+                      <span className="text-sm text-primary-lime font-bold">{feature.highlight}</span>
+                    </div>
+                    
+                    <h3 className="h3 text-primary-lime mb-4 cyber-glitch">
+                      {feature.title}
+                    </h3>
+                    
+                    <p className="body-text text-support-gray">
+                      {feature.description}
+                    </p>
                   </div>
                   
-                  <div className="absolute top-4 right-4 px-3 py-1 bg-primary-lime/10 rounded-full">
-                    <span className="text-sm text-primary-lime font-bold">{feature.highlight}</span>
-                  </div>
-                  
-                  <h3 className="h3 text-primary-lime mb-4 cyber-glitch">
-                    {feature.title}
-                  </h3>
-                  
-                  <p className="body-text text-support-gray">
-                    {feature.description}
-                  </p>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-                
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
       
