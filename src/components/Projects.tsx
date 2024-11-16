@@ -1,166 +1,162 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Sparkles, Brain, Target, Zap } from 'lucide-react';
 
-interface Project {
+interface Feature {
   title: string;
   description: string;
-  image: string;
-  tags: string[];
-  links: {
-    live: string;
-    github: string;
-  };
+  Icon: React.ElementType;
+  demo?: string; // URL for feature demo/preview image
 }
 
-const projects: Project[] = [
+const features: Feature[] = [
   {
-    title: 'CYBER NEXUS',
-    description: 'A futuristic writing platform with AI integration',
-    image: 'https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=1000&auto=format&fit=crop',
-    tags: ['React', 'TypeScript', 'AI', 'WebGL'],
-    links: {
-      live: '#',
-      github: '#'
-    }
+    title: 'AI-Powered Writing Assistant',
+    description: 'Experience writing with Virgil, your AI companion that provides real-time suggestions, helps develop ideas, and keeps you in creative flow.',
+    Icon: Brain,
+    demo: '/ai-assistant-preview.jpg'
   },
   {
-    title: 'NEURAL FORGE',
-    description: 'Advanced text analysis and generation tool',
-    image: 'https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1000&auto=format&fit=crop',
-    tags: ['Node.js', 'Python', 'Machine Learning'],
-    links: {
-      live: '#',
-      github: '#'
-    }
+    title: 'Gamified Writing Experience',
+    description: 'Transform your writing sessions into engaging challenges. Earn rewards, track progress, and maintain motivation through game-like elements.',
+    Icon: Target,
+    demo: '/gamified-preview.jpg'
   },
   {
-    title: 'QUANTUM SCRIBE',
-    description: 'Next-generation collaborative writing environment',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop',
-    tags: ['WebAssembly', 'Rust', 'WebRTC'],
-    links: {
-      live: '#',
-      github: '#'
-    }
+    title: 'Smart Writing Frameworks',
+    description: 'Access intelligent frameworks that adapt to your writing style and goals, whether you're crafting a story, article, or business document.',
+    Icon: Sparkles,
+    demo: '/frameworks-preview.jpg'
+  },
+  {
+    title: 'Real-time Enhancement',
+    description: 'Get instant feedback and suggestions to improve your writing while maintaining your unique voice and creative vision.',
+    Icon: Zap,
+    demo: '/enhancement-preview.jpg'
   }
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, rotateX: -10 },
-  visible: (i: number) => ({
-    opacity: 1,
+  offscreen: {
+    y: 50,
+    opacity: 0
+  },
+  onscreen: {
     y: 0,
-    rotateX: 0,
+    opacity: 1,
     transition: {
       type: "spring",
       bounce: 0.4,
-      duration: 0.8,
-      delay: i * 0.2
+      duration: 0.8
     }
-  })
+  }
 };
 
-const Projects: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 1]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
-
+const FeaturePreview: React.FC = () => {
   return (
-    <section id="projects" className="py-32 relative">
-      <motion.div
-        ref={containerRef}
-        style={{ opacity, scale }}
-        className="container mx-auto px-4"
-      >
-        <motion.h1
+    <section className="py-32 relative overflow-hidden" id="features-preview">
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <motion.h2 
+            className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            ELEVATE YOUR WRITING WITH AI
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-support-gray max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Discover how FreeWriter's AI-powered features transform your writing process into an 
+            engaging and productive experience.
+          </motion.p>
+        </div>
+
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {features.map((feature, index) => {
+            const IconComponent = feature.Icon;
+            return (
+              <motion.div
+                key={feature.title}
+                className="group"
+                variants={cardVariants}
+                initial="offscreen"
+                whileInView="onscreen"
+                viewport={{ once: true, amount: 0.2 }}
+                custom={index}
+              >
+                <div className="retro-card overflow-hidden relative">
+                  {/* Feature Preview Area */}
+                  <div className="relative aspect-video overflow-hidden pixel-border bg-primary-purple/20">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
+                    {/* Interactive Preview Area */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-purple to-primary-purple/50">
+                      <IconComponent className="w-16 h-16 text-primary-lime opacity-80" />
+                    </div>
+                    
+                    {/* Animated Glitch Effect */}
+                    <div className="absolute inset-0 opacity-20 bg-primary-lime mix-blend-overlay" 
+                         style={{ animation: 'glitch 8s ease-in-out infinite' }} />
+                  </div>
+
+                  {/* Feature Info */}
+                  <div className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-lg bg-primary-purple/20 flex items-center justify-center pixel-border">
+                        <IconComponent className="w-6 h-6 text-primary-lime" />
+                      </div>
+                      <h3 className="font-pixelsplitter text-xl text-primary-lime cyber-glitch">
+                        {feature.title}
+                      </h3>
+                    </div>
+                    <p className="text-lg text-support-gray">
+                      {feature.description}
+                    </p>
+                  </div>
+
+                  {/* Interactive Hover Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Call to Action */}
+        <motion.div 
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="h1 text-primary-lime mb-16 text-center cyber-glitch"
+          viewport={{ once: true }}
         >
-          FEATURED PROJECTS
-        </motion.h1>
-        <div className="grid gap-16">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              custom={index}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={cardVariants}
-              className="floating-3d"
-            >
-              <div className="retro-card overflow-hidden group">
-                <div className="relative aspect-video overflow-hidden">
-                  <motion.img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-support-black to-transparent" />
-                </div>
-                <div className="p-8 relative">
-                  <h2 className="h2 text-primary-lime mb-4">
-                    {project.title}
-                  </h2>
-                  <p className="body-text text-support-gray mb-6">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tags.map(tag => (
-                      <span
-                        key={tag}
-                        className="body-text px-3 py-1 bg-primary-purple/20 text-primary-lime rounded pixel-border"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex gap-4">
-                    <motion.a
-                      href={project.links.live}
-                      className="flex items-center gap-2 text-primary-lime hover:text-primary-purple transition-colors duration-300"
-                      whileHover={{ x: 5, scale: 1.05 }}
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                      <span className="body-text">View Live</span>
-                    </motion.a>
-                    <motion.a
-                      href={project.links.github}
-                      className="flex items-center gap-2 text-primary-lime hover:text-primary-purple transition-colors duration-300"
-                      whileHover={{ x: 5, scale: 1.05 }}
-                    >
-                      <Github className="w-5 h-5" />
-                      <span className="body-text">Source Code</span>
-                    </motion.a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-      
+          <a 
+            href="#signup" 
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d"
+          >
+            <span className="font-pixelsplitter text-xl">Try FreeWriter Now</span>
+          </a>
+        </motion.div>
+      </div>
+
       {/* Animated Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-purple/5 to-transparent" />
-        <div className="absolute inset-0 opacity-30" style={{
-          backgroundImage: `radial-gradient(circle at 50% 50%, ${['#490BF4', '#D8F651']
-            .map(color => `${color}10`).join(', ')})`,
+      <div className="absolute inset-0 -z-10 opacity-30">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(to right, ${['#490BF4', '#D8F651', '#2191FB']
+            .map(color => `${color}20`).join(', ')})`,
           filter: 'blur(100px)',
-          animation: 'pulse 10s ease infinite'
+          transform: 'translate3d(0, 0, 0)',
+          animation: 'moveGradient 15s ease infinite'
         }} />
       </div>
     </section>
   );
 };
 
-export default Projects;
+export default FeaturePreview;

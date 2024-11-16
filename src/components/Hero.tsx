@@ -1,101 +1,39 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Star, Users, Zap } from 'lucide-react';
-
-const stats = [
-  { icon: Star, value: '4.9/5', label: 'User Rating' },
-  { icon: Users, value: '50,000+', label: 'Active Writers' },
-  { icon: Zap, value: '2M+', label: 'Stories Created' }
-];
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 const Hero: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
-
   return (
-    <motion.section
-      ref={containerRef}
-      className="min-h-screen relative flex items-center justify-center py-32 overflow-hidden"
-      style={{ opacity, scale }}
-    >
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="min-h-screen flex items-center py-20 relative overflow-hidden">
+      <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Pre-headline */}
           <motion.div
-            className="inline-block mb-6 px-4 py-2 rounded-full bg-primary-purple/20 text-primary-lime border border-primary-lime/20"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ duration: 0.8 }}
           >
-            <span className="text-sm font-bold tracking-wider">🚀 AI-POWERED WRITING ASSISTANT</span>
-          </motion.div>
-          
-          {/* Main headline */}
-          <motion.h1 
-            className="h1 text-primary-lime mb-6 cyber-glitch"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            Transform Your Writing Journey with AI-Powered Creativity
-          </motion.h1>
-          
-          {/* Subheadline */}
-          <motion.p 
-            className="h3 text-support-gray mb-8 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Break through writer's block, enhance your focus, and craft compelling stories with your personal AI writing companion.
-          </motion.p>
-          
-          {/* CTA Buttons */}
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <a 
-              href="#signup" 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card"
-            >
-              <span className="body-text font-bold">Start Free Trial</span>
-              <ArrowRight className="w-5 h-5" />
-            </a>
+            <h1 className="font-pixelsplitter text-4xl md:text-5xl lg:text-6xl text-primary-lime mb-6 cyber-glitch">
+              Unleash Your Creative Potential with FreeWriter
+            </h1>
             
-            <a 
-              href="#demo" 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border-2 border-primary-lime text-primary-lime rounded-lg hover:bg-primary-lime/10 transition-colors duration-300"
-            >
-              <span className="body-text font-bold">Watch Demo</span>
-            </a>
-          </motion.div>
-          
-          {/* Social Proof */}
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            {stats.map((stat, index) => (
-              <div 
-                key={stat.label}
-                className="pixel-border p-4 bg-primary-purple/10 rounded-lg"
+            <p className="text-xl md:text-2xl text-support-gray mb-12 max-w-3xl mx-auto">
+              Welcome to FreeWriter, where storytelling meets innovation. Our AI-powered platform transforms your creative journey into an engaging adventure, making writing not just a task, but a delightful experience.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <stat.icon className="w-6 h-6 text-primary-lime mb-2 mx-auto" />
-                <div className="text-2xl font-bold text-primary-lime mb-1">{stat.value}</div>
-                <div className="text-sm text-support-gray">{stat.label}</div>
-              </div>
-            ))}
+                <a 
+                  href="#signup" 
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d"
+                >
+                  <span className="font-pixelsplitter text-xl">Start Your FreeWriter Adventure</span>
+                  <ArrowRight className="w-6 h-6" />
+                </a>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -110,7 +48,7 @@ const Hero: React.FC = () => {
           animation: 'pulse 10s ease infinite'
         }} />
       </div>
-    </motion.section>
+    </section>
   );
 };
 

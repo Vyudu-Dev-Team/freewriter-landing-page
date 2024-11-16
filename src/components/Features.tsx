@@ -1,55 +1,38 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Bot, GamepadIcon, MessageSquare, Zap, Brain, Users, CheckCircle2 } from 'lucide-react';
-
-const mainFeature = {
-  title: "MEET VIRGIL: YOUR AI WRITING COMPANION",
-  description: "Imagine having a personal guide through the labyrinth of storytelling. Virgil, our AI writing assistant, is here to help you navigate creative challenges, offering brainstorming techniques, structured frameworks, and analytical insights to enhance your narrative skills.",
-  benefits: [
-    "Structured brainstorming techniques",
-    "Narrative frameworks",
-    "Analytical insights",
-    "Creative guidance"
-  ]
-};
+import { Bot, GamepadIcon, MessageSquare, Zap, Brain, Users } from 'lucide-react';
 
 interface Feature {
   title: string;
   Icon: React.ElementType;
   description: string;
-  highlight: string;
 }
 
 const features: Feature[] = [
   {
-    title: 'GAMIFY YOUR WRITING',
+    title: 'Gamify Your Writing Experience',
     Icon: GamepadIcon,
-    description: 'At FreeWriter, we believe in the power of play. Our platform incorporates game-like elements to stimulate creativity, improve focus, and develop storytelling techniques.',
-    highlight: 'Writing Sprints'
+    description: 'At FreeWriter, we believe in the power of play. Our platform incorporates game-like elements to stimulate creativity, improve focus, and develop storytelling techniques. Engage in timed writing sprints, tackle creative challenges, and celebrate your achievements as you progress.'
   },
   {
-    title: 'ENHANCE COMMUNICATION',
+    title: 'Enhance Communication Through Storytelling',
     Icon: MessageSquare,
-    description: 'Stories are at the heart of effective communication. FreeWriter helps you frame your ideas within compelling narratives, making your messages more engaging and memorable.',
-    highlight: 'Better Engagement'
+    description: 'Stories are at the heart of effective communication. FreeWriter helps you frame your ideas within compelling narratives, making your messages more engaging and memorable. Whether you\'re crafting a pitch, developing a product concept, or writing a novel, our tools assist you in connecting with your audience on a deeper level.'
   },
   {
-    title: 'OVERCOME CREATIVE BLOCKS',
+    title: 'Overcome Creative Blocks with Ease',
     Icon: Zap,
-    description: 'Facing writer\'s block? FreeWriter offers structured prompts and exercises designed to reignite your creativity, helping you break through barriers and keep your writing flowing.',
-    highlight: 'Structured Prompts'
+    description: 'Facing writer\'s block? FreeWriter offers structured prompts and exercises designed to reignite your creativity. Our platform provides a supportive environment to explore new ideas and perspectives, helping you break through barriers and keep your writing flowing.'
   },
   {
-    title: 'FOCUS SUPPORT',
+    title: 'Tailored Support for Focus Challenges',
     Icon: Brain,
-    description: 'We understand that maintaining focus can be challenging, especially for individuals with ADHD. FreeWriter\'s engaging, game-based approach offers immediate feedback and rewards.',
-    highlight: 'Instant Feedback'
+    description: 'We understand that maintaining focus can be challenging, especially for individuals with ADHD. FreeWriter\'s engaging, game-based approach offers immediate feedback and rewards, helping you stay attentive and motivated throughout your writing journey.'
   },
   {
-    title: 'WRITING COMMUNITY',
+    title: 'Join a Thriving Community of Writers',
     Icon: Users,
-    description: 'Become part of a vibrant community where collaboration and peer learning thrive. Share your stories, receive constructive feedback, and grow alongside fellow writers.',
-    highlight: 'Peer Learning'
+    description: 'Become part of a vibrant community where collaboration and peer learning thrive. Share your stories, receive constructive feedback, and grow alongside fellow writers. At FreeWriter, we believe that collective creativity leads to individual success.'
   }
 ];
 
@@ -57,12 +40,10 @@ const cardVariants = {
   offscreen: {
     y: 50,
     opacity: 0,
-    rotateX: -10,
   },
   onscreen: {
     y: 0,
     opacity: 1,
-    rotateX: 0,
     transition: {
       type: "spring",
       bounce: 0.4,
@@ -75,7 +56,7 @@ const Features: React.FC = () => {
   return (
     <section id="features" className="py-32 relative overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* Main Feature - Virgil */}
+        {/* Virgil Section */}
         <motion.div
           className="max-w-5xl mx-auto mb-24"
           initial={{ opacity: 0, y: 20 }}
@@ -90,27 +71,12 @@ const Features: React.FC = () => {
                 </div>
                 
                 <h2 className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch">
-                  {mainFeature.title}
+                  Meet Virgil: Your AI Writing Companion
                 </h2>
                 
-                <p className="body-text text-support-gray mb-8">
-                  {mainFeature.description}
+                <p className="text-xl text-support-gray mb-8">
+                  Imagine having a personal guide through the labyrinth of storytelling. Virgil, our AI writing assistant, is here to help you navigate creative challenges, offering brainstorming techniques, structured frameworks, and analytical insights to enhance your narrative skills.
                 </p>
-                
-                <ul className="space-y-4">
-                  {mainFeature.benefits.map((benefit, index) => (
-                    <motion.li
-                      key={benefit}
-                      className="flex items-start gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <CheckCircle2 className="w-6 h-6 text-primary-lime shrink-0 mt-1" />
-                      <span className="body-text text-support-gray">{benefit}</span>
-                    </motion.li>
-                  ))}
-                </ul>
               </div>
               
               <div className="relative">
@@ -122,16 +88,7 @@ const Features: React.FC = () => {
           </div>
         </motion.div>
         
-        {/* Secondary Features */}
-        <motion.h2 
-          className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime text-center mb-16 cyber-glitch"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          UNLEASH YOUR CREATIVE POTENTIAL
-        </motion.h2>
-        
+        {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
             const IconComponent = feature.Icon;
@@ -151,15 +108,11 @@ const Features: React.FC = () => {
                       <IconComponent className="w-8 h-8 text-primary-lime" />
                     </div>
                     
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-primary-lime/10 rounded-full">
-                      <span className="text-sm text-primary-lime font-bold">{feature.highlight}</span>
-                    </div>
-                    
                     <h3 className="font-pixelsplitter text-xl md:text-2xl text-primary-lime mb-4 cyber-glitch">
                       {feature.title}
                     </h3>
                     
-                    <p className="body-text text-support-gray">
+                    <p className="text-lg text-support-gray">
                       {feature.description}
                     </p>
                   </div>
@@ -171,6 +124,27 @@ const Features: React.FC = () => {
           })}
         </div>
       </div>
+      
+      {/* Final CTA */}
+      <motion.div
+        className="max-w-4xl mx-auto text-center mt-24 px-4"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch">
+          Start Your FreeWriter Adventure Today
+        </h2>
+        <p className="text-xl text-support-gray mb-8">
+          Embark on a transformative writing journey with FreeWriter. Sign up now to experience a platform that combines the joy of storytelling with the thrill of gaming, all guided by your AI companion, Virgil. Unlock your creative potential and make writing an adventure worth pursuing.
+        </p>
+        <a 
+          href="#signup" 
+          className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d"
+        >
+          <span className="font-pixelsplitter text-xl">Start Writing Now</span>
+        </a>
+      </motion.div>
       
       {/* Background Grid Animation */}
       <div className="absolute inset-0 -z-10 opacity-30">
