@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { Bot, GamepadIcon, MessageSquare, Zap, Brain, Users, CheckCircle2 } from 'lucide-react';
 
 const mainFeature = {
-  title: "MEET VIRGIL - YOUR AI WRITING COMPANION",
-  description: "Experience the future of writing with Virgil, your personal AI assistant that understands your creative process.",
+  title: "MEET VIRGIL: YOUR AI WRITING COMPANION",
+  description: "Imagine having a personal guide through the labyrinth of storytelling. Virgil, our AI writing assistant, is here to help you navigate creative challenges, offering brainstorming techniques, structured frameworks, and analytical insights to enhance your narrative skills.",
   benefits: [
-    "Smart brainstorming and idea generation",
-    "Real-time writing suggestions and improvements",
-    "Personalized writing style analysis",
-    "24/7 creative support and guidance"
+    "Structured brainstorming techniques",
+    "Narrative frameworks",
+    "Analytical insights",
+    "Creative guidance"
   ]
 };
 
@@ -22,34 +22,34 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    title: 'GAMIFIED WRITING',
+    title: 'GAMIFY YOUR WRITING',
     Icon: GamepadIcon,
-    description: 'Turn writing into an engaging game with rewards, achievements, and progress tracking.',
-    highlight: 'Boost motivation by 3x'
+    description: 'At FreeWriter, we believe in the power of play. Our platform incorporates game-like elements to stimulate creativity, improve focus, and develop storytelling techniques.',
+    highlight: 'Writing Sprints'
   },
   {
-    title: 'STORYTELLING MASTERY',
+    title: 'ENHANCE COMMUNICATION',
     Icon: MessageSquare,
-    description: 'Learn professional storytelling techniques through interactive exercises and feedback.',
-    highlight: 'Improve engagement by 75%'
+    description: 'Stories are at the heart of effective communication. FreeWriter helps you frame your ideas within compelling narratives, making your messages more engaging and memorable.',
+    highlight: 'Better Engagement'
   },
   {
-    title: 'CREATIVE UNBLOCKING',
+    title: 'OVERCOME CREATIVE BLOCKS',
     Icon: Zap,
-    description: 'Never face writer\'s block again with AI-powered prompts and creative exercises.',
-    highlight: 'Reduce blocks by 80%'
+    description: 'Facing writer\'s block? FreeWriter offers structured prompts and exercises designed to reignite your creativity, helping you break through barriers and keep your writing flowing.',
+    highlight: 'Structured Prompts'
   },
   {
-    title: 'FOCUS ENHANCEMENT',
+    title: 'FOCUS SUPPORT',
     Icon: Brain,
-    description: 'Stay in the flow with our ADHD-friendly interface and immediate reward system.',
-    highlight: 'Double your focus time'
+    description: 'We understand that maintaining focus can be challenging, especially for individuals with ADHD. FreeWriter\'s engaging, game-based approach offers immediate feedback and rewards.',
+    highlight: 'Instant Feedback'
   },
   {
-    title: 'VIBRANT COMMUNITY',
+    title: 'WRITING COMMUNITY',
     Icon: Users,
-    description: 'Join thousands of writers sharing feedback, tips, and success stories.',
-    highlight: '50K+ active writers'
+    description: 'Become part of a vibrant community where collaboration and peer learning thrive. Share your stories, receive constructive feedback, and grow alongside fellow writers.',
+    highlight: 'Peer Learning'
   }
 ];
 
@@ -89,7 +89,7 @@ const Features: React.FC = () => {
                   <Bot className="w-12 h-12 text-primary-lime" />
                 </div>
                 
-                <h2 className="h2 text-primary-lime mb-6 cyber-glitch">
+                <h2 className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch">
                   {mainFeature.title}
                 </h2>
                 
@@ -115,7 +115,6 @@ const Features: React.FC = () => {
               
               <div className="relative">
                 <div className="aspect-square rounded-lg overflow-hidden pixel-border bg-primary-purple/20">
-                  {/* Add Virgil illustration or animation here */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
                 </div>
               </div>
@@ -125,12 +124,12 @@ const Features: React.FC = () => {
         
         {/* Secondary Features */}
         <motion.h2 
-          className="h2 text-primary-lime text-center mb-16 cyber-glitch"
+          className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime text-center mb-16 cyber-glitch"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          SUPERCHARGE YOUR WRITING
+          UNLEASH YOUR CREATIVE POTENTIAL
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -156,7 +155,7 @@ const Features: React.FC = () => {
                       <span className="text-sm text-primary-lime font-bold">{feature.highlight}</span>
                     </div>
                     
-                    <h3 className="h3 text-primary-lime mb-4 cyber-glitch">
+                    <h3 className="font-pixelsplitter text-xl md:text-2xl text-primary-lime mb-4 cyber-glitch">
                       {feature.title}
                     </h3>
                     
