@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Brain, Target, Zap } from 'lucide-react';
+import { ScrollAnimationWrapper, GlitchText, CyberCard } from './ScrollAnimations';
 
 interface Feature {
   title: string;
@@ -58,24 +59,20 @@ const FeaturePreview: React.FC = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <motion.h2 
-            className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            ELEVATE YOUR WRITING WITH AI
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-support-gray max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            Discover how FreeWriter's AI-powered features transform your writing process into an 
-            engaging and productive experience.
-          </motion.p>
+          <ScrollAnimationWrapper animation="fadeUp">
+            <GlitchText
+              text="ELEVATE YOUR WRITING WITH AI"
+              className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch"
+              delay={0.2}
+            />
+          </ScrollAnimationWrapper>
+          
+          <ScrollAnimationWrapper animation="fadeUp" delay={0.3}>
+            <p className="text-xl text-support-gray max-w-3xl mx-auto">
+              Discover how FreeWriter's AI-powered features transform your writing process into an 
+              engaging and productive experience.
+            </p>
+          </ScrollAnimationWrapper>
         </div>
 
         {/* Features Grid */}
@@ -83,17 +80,12 @@ const FeaturePreview: React.FC = () => {
           {features.map((feature, index) => {
             const IconComponent = feature.Icon;
             return (
-              <motion.div
+              <ScrollAnimationWrapper
                 key={feature.title}
-                className="group"
-                variants={cardVariants}
-                initial="offscreen"
-                whileInView="onscreen"
-                viewport={{ once: true, amount: 0.2 }}
-                custom={index}
+                animation="slideIn"
+                delay={0.4 + index * 0.2}
               >
-                <div className="retro-card overflow-hidden relative">
-                  {/* Feature Preview Area */}
+                <CyberCard className="h-full">
                   <div className="relative aspect-video overflow-hidden pixel-border bg-primary-purple/20">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
                     {/* Interactive Preview Area */}
@@ -120,29 +112,23 @@ const FeaturePreview: React.FC = () => {
                       {feature.description}
                     </p>
                   </div>
-
-                  {/* Interactive Hover Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-              </motion.div>
+                </CyberCard>
+              </ScrollAnimationWrapper>
             );
           })}
         </div>
 
         {/* Call to Action */}
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <a 
-            href="#signup" 
-            className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d"
-          >
-            <span className="font-pixelsplitter text-xl">Try FreeWriter Now</span>
-          </a>
-        </motion.div>
+        <ScrollAnimationWrapper animation="scale" delay={1.2}>
+          <div className="text-center mt-16">
+            <a 
+              href="#signup" 
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d"
+            >
+              <span className="font-pixelsplitter text-xl">Try FreeWriter Now</span>
+            </a>
+          </div>
+        </ScrollAnimationWrapper>
       </div>
 
       {/* Animated Background */}

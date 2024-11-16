@@ -1,0 +1,205 @@
+/* Pulse Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}
+
+/* Glitch Animation */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Moving Gradient */
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Floating 3D Effect */
+.floating-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.floating-3d:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+/* Cyber Glitch Effect */
+.cyber-glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.cyber-glitch::before,
+.cyber-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  clip: rect(0, 0, 0, 0);
+}
+
+.cyber-glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 #D8F651;
+  animation: cyber-glitch-1 2s infinite linear alternate-reverse;
+}
+
+.cyber-glitch::after {
+  left: -2px;
+  text-shadow: -1px 0 #490BF4;
+  animation: cyber-glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes cyber-glitch-1 {
+  0% {
+    clip: rect(20px, 9999px, 21px, 0);
+  }
+  10% {
+    clip: rect(42px, 9999px, 44px, 0);
+  }
+  20% {
+    clip: rect(15px, 9999px, 16px, 0);
+  }
+  30% {
+    clip: rect(34px, 9999px, 36px, 0);
+  }
+  40% {
+    clip: rect(27px, 9999px, 29px, 0);
+  }
+  50% {
+    clip: rect(8px, 9999px, 10px, 0);
+  }
+  60% {
+    clip: rect(38px, 9999px, 40px, 0);
+  }
+  70% {
+    clip: rect(12px, 9999px, 14px, 0);
+  }
+  80% {
+    clip: rect(31px, 9999px, 33px, 0);
+  }
+  90% {
+    clip: rect(23px, 9999px, 25px, 0);
+  }
+  100% {
+    clip: rect(19px, 9999px, 21px, 0);
+  }
+}
+
+@keyframes cyber-glitch-2 {
+  0% {
+    clip: rect(12px, 9999px, 13px, 0);
+  }
+  10% {
+    clip: rect(34px, 9999px, 36px, 0);
+  }
+  20% {
+    clip: rect(27px, 9999px, 29px, 0);
+  }
+  30% {
+    clip: rect(42px, 9999px, 44px, 0);
+  }
+  40% {
+    clip: rect(15px, 9999px, 17px, 0);
+  }
+  50% {
+    clip: rect(31px, 9999px, 33px, 0);
+  }
+  60% {
+    clip: rect(8px, 9999px, 10px, 0);
+  }
+  70% {
+    clip: rect(38px, 9999px, 40px, 0);
+  }
+  80% {
+    clip: rect(23px, 9999px, 25px, 0);
+  }
+  90% {
+    clip: rect(19px, 9999px, 21px, 0);
+  }
+  100% {
+    clip: rect(12px, 9999px, 14px, 0);
+  }
+}
+
+/* Pixel Border */
+.pixel-border {
+  position: relative;
+  border: 1px solid rgba(216, 246, 81, 0.3);
+}
+
+.pixel-border::before,
+.pixel-border::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(216, 246, 81, 0.5);
+}
+
+.pixel-border::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.pixel-border::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Retro Card */
+.retro-card {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(216, 246, 81, 0.1);
+  box-shadow: 0 4px 30px rgba(73, 11, 244, 0.1);
+  transition: all 0.3s ease;
+}
+
+.retro-card:hover {
+  border-color: rgba(216, 246, 81, 0.3);
+  box-shadow: 0 8px 40px rgba(73, 11, 244, 0.2);
+}
