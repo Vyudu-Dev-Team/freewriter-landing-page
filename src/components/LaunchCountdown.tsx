@@ -10,17 +10,21 @@ interface TimeLeft {
 
 const LaunchCountdown: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
-    days: 10,
+    days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0
   });
 
   useEffect(() => {
+    // Set the launch date to exactly 10 days from when the component first mounts
+    const launchDate = new Date();
+    launchDate.setDate(launchDate.getDate() + 10);
+    launchDate.setHours(23, 59, 59, 999); // Set to end of the day
+
     const calculateTimeLeft = () => {
-      const launchDate = new Date();
-      launchDate.setDate(launchDate.getDate() + 10); // 10 days from now
-      const difference = +launchDate - +new Date();
+      const now = new Date();
+      const difference = +launchDate - +now;
 
       if (difference > 0) {
         setTimeLeft({
@@ -29,12 +33,21 @@ const LaunchCountdown: React.FC = () => {
           minutes: Math.floor((difference / 1000 / 60) % 60),
           seconds: Math.floor((difference / 1000) % 60)
         });
+      } else {
+        // If countdown is finished
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
     };
 
+    // Calculate immediately
+    calculateTimeLeft();
+
+    // Then update every second
     const timer = setInterval(calculateTimeLeft, 1000);
+
+    // Cleanup interval on component unmount
     return () => clearInterval(timer);
-  }, []);
+  }, []); // Empty dependency array means this effect runs once on mount
 
   const TimeUnit: React.FC<{ value: number; label: string }> = ({ value, label }) => (
     <div className="relative group">
@@ -55,6 +68,9 @@ const LaunchCountdown: React.FC = () => {
         
         {/* Right face (3D effect) */}
         <div className="absolute -right-2 top-0 bottom-0 w-4 bg-primary-purple/40 rounded-lg transform-gpu skew-y-12 -z-10" />
+
+        {/* Reflection effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-lime/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
       </div>
 
       {/* Glow effect */}
