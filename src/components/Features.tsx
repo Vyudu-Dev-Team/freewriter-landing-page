@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Bot, GamepadIcon, MessageSquare, Zap, Brain, Users } from 'lucide-react';
+import FloatingCharacter from './FloatingCharacter'; // Assuming the FloatingCharacter component is in the same directory
 
 interface Feature {
   title: string;
@@ -64,33 +65,38 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="retro-card p-12 relative overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              {/* Text Content */}
+            <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="font-pixelsplitter text-3xl text-primary-lime mb-6">
-                  Meet Virgil
-                </h2>
-                <p className="text-support-gray mb-6">
-                  Your AI writing companion, designed to inspire and guide you through your creative journey.
-                </p>
-              </div>
-
-              {/* Character Image Container */}
-              <motion.div 
-                initial={{ scale: 0, rotate: -180, opacity: 0 }}
-                whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
-                transition={{ 
-                  duration: 1,
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 20
-                }}
-                className="relative aspect-square bg-support-black/30 rounded-lg overflow-hidden"
-              >
                 <div className="pixel-border w-20 h-20 bg-primary-purple rounded-lg flex items-center justify-center mb-6">
                   <Bot className="w-12 h-12 text-primary-lime" />
                 </div>
-              </motion.div>
+                
+                <h2 className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch">
+                  Meet Virgil: Your AI Writing Companion
+                </h2>
+                
+                <p className="text-xl text-support-gray mb-8">
+                  Imagine having a personal guide through the labyrinth of storytelling. Virgil, our AI writing assistant, is here to help you navigate creative challenges, offering brainstorming techniques, structured frameworks, and analytical insights to enhance your narrative skills.
+                </p>
+              </div>
+              
+              <div className="relative">
+                <motion.div 
+                  className="aspect-square rounded-lg overflow-hidden pixel-border bg-primary-purple/20 relative"
+                  initial={{ scale: 0.5, y: 100, opacity: 0 }}
+                  whileInView={{ scale: 1, y: 0, opacity: 1 }}
+                  transition={{ 
+                    duration: 0.8,
+                    type: "spring",
+                    bounce: 0.3
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <FloatingCharacter className="w-full h-full object-contain transform scale-90" />
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </motion.div>
