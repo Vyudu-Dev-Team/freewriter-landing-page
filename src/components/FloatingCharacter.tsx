@@ -26,7 +26,7 @@ const FloatingCharacter: React.FC = () => {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let offset = 0;
+    let time = 0;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -34,78 +34,83 @@ const FloatingCharacter: React.FC = () => {
       canvas.height = rect.height;
     };
 
-    const drawPenElectricity = () => {
+    const drawAura = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Adjusted pen position to match the actual pen in the character's hand
-      const penStartX = canvas.width * 0.58; // Moved right to match pen position
-      const penStartY = canvas.height * 0.42; // Adjusted to top of pen
-      const penLength = canvas.height * 0.35; // Adjusted length to match pen
+      const centerX = canvas.width * 0.5;
+      const centerY = canvas.height * 0.5;
       
-      // Draw multiple electricity strands
-      const numStrands = 3;
+      // Base radius for the aura
+      const baseRadius = Math.min(canvas.width, canvas.height) * 0.4;
       
-      for (let strand = 0; strand < numStrands; strand++) {
-        const segments = 25;
-        ctx.beginPath();
+      // Create multiple layers of aura
+      for (let layer = 0; layer < 3; layer++) {
+        const layerOffset = layer * 0.1; // Offset each layer
         
-        // Each strand has a different phase
-        const phaseOffset = (strand / numStrands) * Math.PI * 2;
+        // Create dynamic radius with wave effect
+        const waveSpeed = 0.001;
+        const waveAmplitude = 20;
+        const layerRadius = baseRadius + 
+          Math.sin(time * waveSpeed + layerOffset * Math.PI * 2) * waveAmplitude;
         
-        for (let i = 0; i <= segments; i++) {
-          const progress = i / segments;
-          // Smaller wave effect to keep it closer to the pen
-          const wave = Math.sin(progress * Math.PI * 6 + offset + phaseOffset) * 4;
-          // Reduced jitter for more controlled effect
-          const jitter = Math.random() * 1.5 - 0.75;
+        // Create multiple gradient circles for each layer
+        const numCircles = 8;
+        for (let i = 0; i < numCircles; i++) {
+          const angle = (i / numCircles) * Math.PI * 2 + time * 0.001;
+          const wobbleX = Math.cos(angle) * 15;
+          const wobbleY = Math.sin(angle) * 15;
           
-          const x = penStartX + wave + jitter;
-          const y = penStartY + (penLength * progress);
+          // Create radial gradient
+          const gradient = ctx.createRadialGradient(
+            centerX + wobbleX, centerY + wobbleY, 0,
+            centerX + wobbleX, centerY + wobbleY, layerRadius
+          );
           
-          if (i === 0) {
-            ctx.moveTo(x, y);
+          // Alternate between blue and yellow colors
+          if (i % 2 === 0) {
+            gradient.addColorStop(0, 'rgba(0, 191, 255, 0.1)');
+            gradient.addColorStop(0.5, 'rgba(0, 191, 255, 0.05)');
+            gradient.addColorStop(1, 'rgba(0, 191, 255, 0)');
           } else {
-            // Smaller zag effect to keep it tighter to the pen
-            const zag = Math.random() * 2 - 1;
-            ctx.lineTo(x + zag, y);
+            gradient.addColorStop(0, 'rgba(216, 246, 81, 0.1)');
+            gradient.addColorStop(0.5, 'rgba(216, 246, 81, 0.05)');
+            gradient.addColorStop(1, 'rgba(216, 246, 81, 0)');
           }
+          
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(
+            centerX + wobbleX,
+            centerY + wobbleY,
+            layerRadius,
+            0,
+            Math.PI * 2
+          );
+          ctx.fill();
         }
-        
-        // Create gradient for the electricity
-        const gradient = ctx.createLinearGradient(
-          penStartX, penStartY,
-          penStartX, penStartY + penLength
-        );
-        
-        // Brighter, more electric blue colors
-        gradient.addColorStop(0, 'rgba(0, 191, 255, 0)');
-        gradient.addColorStop(0.2, 'rgba(0, 191, 255, 0.8)');
-        gradient.addColorStop(0.5, 'rgba(30, 255, 255, 0.9)');
-        gradient.addColorStop(0.8, 'rgba(0, 191, 255, 0.8)');
-        gradient.addColorStop(1, 'rgba(0, 191, 255, 0)');
-        
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        
-        // Add glow effect
-        ctx.save();
-        ctx.filter = 'blur(3px)';
-        ctx.strokeStyle = 'rgba(0, 225, 255, 0.4)';
-        ctx.lineWidth = 6;
-        ctx.stroke();
-        ctx.restore();
       }
       
-      // Update animation
-      offset += 0.15; // Slightly faster animation
+      // Add outer glow effect
+      const outerGlow = ctx.createRadialGradient(
+        centerX, centerY, baseRadius * 0.8,
+        centerX, centerY, baseRadius * 1.2
+      );
+      outerGlow.addColorStop(0, 'rgba(0, 191, 255, 0.1)');
+      outerGlow.addColorStop(0.5, 'rgba(216, 246, 81, 0.05)');
+      outerGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
       
-      animationFrameId = requestAnimationFrame(drawPenElectricity);
+      ctx.fillStyle = outerGlow;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, baseRadius * 1.2, 0, Math.PI * 2);
+      ctx.fill();
+      
+      time += 16; // Approximately 60fps
+      animationFrameId = requestAnimationFrame(drawAura);
     };
 
     window.addEventListener('resize', resize);
     resize();
-    drawPenElectricity();
+    drawAura();
 
     return () => {
       window.removeEventListener('resize', resize);
@@ -125,6 +130,13 @@ const FloatingCharacter: React.FC = () => {
         className="relative w-full h-full"
         animate={floatingAnimation}
       >
+        {/* Canvas for aura effect */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ zIndex: -1 }}
+        />
+        
         {/* Character image */}
         <img
           srcSet="/images/FREEWRITER_600.png 1x, /images/FREEWRITER_1200.png 2x"
@@ -132,13 +144,6 @@ const FloatingCharacter: React.FC = () => {
           alt="FreeWriter Character"
           className="relative w-full h-full object-contain"
           loading="eager"
-        />
-        
-        {/* Canvas for pen electricity effect */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ zIndex: 1 }}
         />
       </motion.div>
     </motion.div>
