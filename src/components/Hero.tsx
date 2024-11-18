@@ -72,7 +72,10 @@ const Hero: React.FC = () => {
           <ScrollAnimationWrapper animation="scale" delay={1}>
             <a
               href="#signup"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-primary-purple rounded-lg hover:bg-[#D8F651]/90 transition-colors duration-300 retro-card floating-3d font-pixelsplitter text-xl mb-16"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
+                       hover:bg-[#D8F651]/90 transition-colors duration-300 
+                       retro-card floating-3d font-pixelsplitter text-xl 
+                       font-bold tracking-wider shadow-lg"
             >
               Coming Soon
             </a>

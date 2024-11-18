@@ -17,22 +17,20 @@ const LaunchCountdown: React.FC = () => {
   });
 
   useEffect(() => {
-    // Set the launch date to exactly 10 days from when the component first mounts
-    const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 10);
-    launchDate.setHours(23, 59, 59, 999); // Set to end of the day
+    // Set launch date to September 1, 2024
+    const launchDate = new Date('2024-09-01T00:00:00').getTime();
 
     const calculateTimeLeft = () => {
-      const now = new Date();
-      const difference = +launchDate - +now;
+      const now = new Date().getTime();
+      const difference = launchDate - now;
 
       if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        });
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        setTimeLeft({ days, hours, minutes, seconds });
       } else {
         // If countdown is finished
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -41,13 +39,13 @@ const LaunchCountdown: React.FC = () => {
 
     // Calculate immediately
     calculateTimeLeft();
-
-    // Then update every second
+    
+    // Update every second
     const timer = setInterval(calculateTimeLeft, 1000);
 
-    // Cleanup interval on component unmount
+    // Cleanup
     return () => clearInterval(timer);
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []);
 
   const TimeUnit: React.FC<{ value: number; label: string }> = ({ value, label }) => (
     <div className="relative group">
