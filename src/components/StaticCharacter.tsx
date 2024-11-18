@@ -81,19 +81,21 @@ const StaticCharacter: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative flex items-center justify-center">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
         style={{ mixBlendMode: 'screen' }}
       />
-      <div 
-        className="absolute inset-0"
-        style={{
-          background: `url('/character.png') no-repeat center center`,
-          backgroundSize: 'contain'
-        }}
-      />
+      <div className="relative w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] mx-auto">
+        <img
+          srcSet="/images/FREEWRITER_600.png 1x, /images/FREEWRITER_1200.png 2x"
+          src="/images/FREEWRITER_600.png"
+          alt="FreeWriter Character"
+          className="w-full h-full object-contain mx-auto"
+          loading="eager"
+        />
+      </div>
     </div>
   );
 };

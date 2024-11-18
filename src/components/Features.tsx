@@ -53,27 +53,6 @@ const cardVariants = {
   }
 };
 
-const VirgilCharacter = () => {
-  return (
-    <motion.div
-      className="w-full h-full flex items-center justify-center"
-      animate={{
-        y: [0, -8, 0]
-      }}
-      transition={{
-        duration: 2.5,
-        repeat: Infinity,
-        ease: "easeInOut",
-        repeatType: "reverse"
-      }}
-    >
-      <div className="w-full h-full">
-        <StaticCharacter />
-      </div>
-    </motion.div>
-  );
-};
-
 const Features: React.FC = () => {
   return (
     <section id="features" className="py-4 sm:py-8 relative overflow-hidden">
@@ -99,9 +78,20 @@ const Features: React.FC = () => {
               <div className="relative w-full aspect-square">
                 <div className="absolute inset-0 rounded-lg overflow-hidden pixel-border bg-primary-purple/20">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <VirgilCharacter />
-                  </div>
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={{
+                      y: [0, -8, 0]
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      repeatType: "reverse"
+                    }}
+                  >
+                    <StaticCharacter />
+                  </motion.div>
                 </div>
               </div>
             </div>
