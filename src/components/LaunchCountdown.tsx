@@ -81,16 +81,16 @@ const LaunchCountdown: React.FC = () => {
   );
 
   return (
-    <section className="py-20 relative">
+    <section className="py-8 md:py-12 relative overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <ScrollAnimationWrapper animation="fadeUp" delay={0.2}>
-            <h2 className="font-pixelsplitter text-4xl text-primary-lime mb-12">
+            <h2 className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-8">
               Launching Soon
             </h2>
           </ScrollAnimationWrapper>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {[
               { label: 'Days', value: timeLeft.days },
               { label: 'Hours', value: timeLeft.hours },
@@ -110,14 +110,12 @@ const LaunchCountdown: React.FC = () => {
               </ScrollAnimationWrapper>
             ))}
           </div>
-
-          {/* Blue light streak */}
-          <div className="relative h-24 overflow-hidden my-4">
-            <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-[#490BF4]/40 to-transparent top-1/2 transform -translate-y-1/2">
-              <div className="absolute inset-0 animate-pulse-slow opacity-70"></div>
-            </div>
-          </div>
         </div>
+      </div>
+
+      {/* Section Divider with Flare */}
+      <div className="section-divider mt-8">
+        <div className="light-flare"></div>
       </div>
     </section>
   );

@@ -233,37 +233,99 @@
   }
 }
 
-/* Flare animation */
-@keyframes flareAnimation {
+/* Enhanced Flare Animation */
+.light-flare {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(73, 11, 244, 0.1) 15%,
+    rgba(73, 11, 244, 0.4) 30%,
+    rgba(73, 11, 244, 0.8) 50%,
+    rgba(73, 11, 244, 0.4) 70%,
+    rgba(73, 11, 244, 0.1) 85%,
+    transparent 100%
+  );
+  transform-style: preserve-3d;
+  animation: flareMove 4s ease-in-out infinite;
+}
+
+.light-flare::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: inherit;
+  filter: blur(4px);
+  opacity: 0.7;
+  animation: flarePulse 2s ease-in-out infinite;
+}
+
+@keyframes flareMove {
   0% {
     opacity: 0;
-    transform: translateX(-100%) translateY(-50%) scaleX(0.1);
+    transform: translateX(-100%) translateZ(10px) scaleX(0.5);
   }
   20% {
     opacity: 1;
-    transform: translateX(-50%) translateY(-50%) scaleX(1);
+    transform: translateX(-50%) translateZ(20px) scaleX(1.2);
   }
   80% {
     opacity: 1;
-    transform: translateX(50%) translateY(-50%) scaleX(1);
+    transform: translateX(50%) translateZ(20px) scaleX(1.2);
   }
   100% {
     opacity: 0;
-    transform: translateX(100%) translateY(-50%) scaleX(0.1);
+    transform: translateX(100%) translateZ(10px) scaleX(0.5);
   }
 }
 
-/* Reduce section spacing */
+@keyframes flarePulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateZ(15px) scaleY(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateZ(25px) scaleY(1.2);
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .character-container {
+    margin-top: -2rem;
+    margin-bottom: -2rem;
+  }
+}
+
+/* Reduced spacing between sections */
 section {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
 
-@media (min-width: 768px) {
-  section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
+.section-divider {
+  padding: 1rem 0;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 /* Mobile optimizations */

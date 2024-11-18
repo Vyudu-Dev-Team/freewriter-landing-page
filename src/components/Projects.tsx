@@ -121,9 +121,12 @@ const FeaturePreview: React.FC = () => {
           <div className="text-center mt-16">
             <a 
               href="#signup" 
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
+                       hover:bg-[#D8F651]/90 transition-colors duration-300 
+                       retro-card floating-3d font-pixelsplitter text-xl
+                       font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20"
             >
-              <span className="font-pixelsplitter text-xl">Try FreeWriter Now</span>
+              Coming Soon
             </a>
           </div>
         </ScrollAnimationWrapper>
