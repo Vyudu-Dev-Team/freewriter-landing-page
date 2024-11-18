@@ -12,8 +12,8 @@ const Hero: React.FC = () => {
       <div className="w-full text-center mb-8 md:mb-12">
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
           <h1 className="font-bold text-4xl relative">
-            <span className="font-pixelsplitter text-[#D8F651] text-4xl">FREE</span>
-            <span className="font-pixelsplitter text-[#490BF4] text-4xl">WRITER</span>
+            <span className="font-pixelsplitter text-[#D8F651] text-4xl cyber-glitch">FREE</span>
+            <span className="font-pixelsplitter text-[#490BF4] text-4xl cyber-glitch">WRITER</span>
             <div className="absolute -inset-1 bg-primary-purple/20 -z-10 blur-lg"></div>
           </h1>
         </ScrollAnimationWrapper>
@@ -26,16 +26,6 @@ const Hero: React.FC = () => {
             <span className="font-pixelsplitter text-4xl md:text-5xl text-[#490BF4] cyber-glitch">FREE</span>
             <span className="font-pixelsplitter text-4xl md:text-5xl text-[#D8F651] cyber-glitch">WRITER</span>
           </h1>
-
-          {/* Desktop FREEWRITER logo */}
-          <div className="hidden lg:block">
-            <ScrollAnimationWrapper animation="fadeIn">
-              <h1 className="text-center mb-8">
-                <span className="font-pixelsplitter text-6xl text-[#490BF4] cyber-glitch">FREE</span>
-                <span className="font-pixelsplitter text-6xl text-[#D8F651] cyber-glitch">WRITER</span>
-              </h1>
-            </ScrollAnimationWrapper>
-          </div>
 
           {/* Main Heading */}
           <ScrollAnimationWrapper animation="fadeUp">
