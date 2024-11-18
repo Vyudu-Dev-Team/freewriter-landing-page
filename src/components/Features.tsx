@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, GamepadIcon, MessageSquare, Zap, Brain, Users, Brush, Code, Wand2 } from 'lucide-react';
+import FloatingCharacter from './FloatingCharacter';
 
 interface Feature {
   title: string;
@@ -52,6 +53,23 @@ const cardVariants = {
   }
 };
 
+const StaticCharacter: React.FC = () => {
+  return (
+    <div className="w-3/4 h-3/4">
+      <canvas 
+        width="512" 
+        height="512" 
+        style={{
+          width: '100%',
+          height: '100%',
+          background: `url('/character.png') no-repeat center center`,
+          backgroundSize: 'contain'
+        }}
+      />
+    </div>
+  );
+};
+
 const VirgilCharacter = () => {
   return (
     <motion.div
@@ -66,11 +84,7 @@ const VirgilCharacter = () => {
         repeatType: "reverse"
       }}
     >
-      <img 
-        src="/character.png" 
-        alt="Virgil Character" 
-        className="w-3/4 h-3/4 object-contain"
-      />
+      <StaticCharacter />
     </motion.div>
   );
 };
