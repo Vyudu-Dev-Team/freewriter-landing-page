@@ -37,10 +37,10 @@ const FloatingCharacter: React.FC = () => {
     const drawPenElectricity = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Adjusted pen position based on the image
-      const penStartX = canvas.width * 0.32; // Left side of pen
-      const penStartY = canvas.height * 0.35; // Top of pen
-      const penLength = canvas.height * 0.5; // Length of pen
+      // Adjusted pen position to match the actual pen in the character's hand
+      const penStartX = canvas.width * 0.58; // Moved right to match pen position
+      const penStartY = canvas.height * 0.42; // Adjusted to top of pen
+      const penLength = canvas.height * 0.35; // Adjusted length to match pen
       
       // Draw multiple electricity strands
       const numStrands = 3;
@@ -54,10 +54,10 @@ const FloatingCharacter: React.FC = () => {
         
         for (let i = 0; i <= segments; i++) {
           const progress = i / segments;
-          // Larger wave effect
-          const wave = Math.sin(progress * Math.PI * 6 + offset + phaseOffset) * 8;
-          // Add some random jitter
-          const jitter = Math.random() * 2 - 1;
+          // Smaller wave effect to keep it closer to the pen
+          const wave = Math.sin(progress * Math.PI * 6 + offset + phaseOffset) * 4;
+          // Reduced jitter for more controlled effect
+          const jitter = Math.random() * 1.5 - 0.75;
           
           const x = penStartX + wave + jitter;
           const y = penStartY + (penLength * progress);
@@ -65,8 +65,8 @@ const FloatingCharacter: React.FC = () => {
           if (i === 0) {
             ctx.moveTo(x, y);
           } else {
-            // Add more jagged effect
-            const zag = Math.random() * 4 - 2;
+            // Smaller zag effect to keep it tighter to the pen
+            const zag = Math.random() * 2 - 1;
             ctx.lineTo(x + zag, y);
           }
         }
