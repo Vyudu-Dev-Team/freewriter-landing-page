@@ -11,9 +11,9 @@ const Hero: React.FC = () => {
       {/* Main Title */}
       <div className="w-full text-center mb-8 md:mb-12">
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
-          <h1 className="cyber-glitch relative text-4xl sm:text-4xl">
-            <span className="font-pixelsplitter text-[#D8F651]">FREE</span>
-            <span className="font-pixelsplitter text-[#490BF4]">WRITER</span>
+          <h1 className="text-4xl sm:text-4xl relative">
+            <span className="font-pixelsplitter text-[#D8F651] tracking-wider">FREE</span>
+            <span className="font-pixelsplitter text-[#490BF4] tracking-wider">WRITER</span>
             <div className="absolute -inset-1 bg-primary-purple/20 -z-10 blur-lg"></div>
           </h1>
         </ScrollAnimationWrapper>
