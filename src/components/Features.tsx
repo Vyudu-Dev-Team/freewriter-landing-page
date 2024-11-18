@@ -87,7 +87,6 @@ const Features: React.FC = () => {
                   whileInView="visible"
                   viewport={{ 
                     once: false,
-                    amount: "some",
                     margin: "-100px"
                   }}
                   variants={{
@@ -109,33 +108,21 @@ const Features: React.FC = () => {
                   }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
-                  <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
-                    initial="hidden"
-                    animate="visible"
-                    variants={{
-                      hidden: {
-                        scale: 0.8,
-                        y: 50,
-                        opacity: 0
-                      },
-                      visible: {
-                        scale: 1,
-                        y: 0,
-                        opacity: 1,
-                        transition: {
-                          duration: 0.8,
-                          type: "spring",
-                          bounce: 0.4,
-                          delay: 0.1
-                        }
-                      }
-                    }}
-                  >
-                    <div className="w-full h-full relative flex items-center justify-center">
-                      <FloatingCharacter className="w-4/5 h-4/5 object-contain" />
-                    </div>
-                  </motion.div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      className="w-full h-full flex items-center justify-center"
+                      animate={{
+                        y: [0, -10, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <FloatingCharacter className="w-3/4 h-3/4 object-contain" />
+                    </motion.div>
+                  </div>
                 </motion.div>
               </div>
             </div>

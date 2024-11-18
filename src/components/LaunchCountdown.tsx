@@ -9,12 +9,18 @@ interface TimeLeft {
 }
 
 const calculateTimeLeft = () => {
-  // Set launch date to 8 days from now
-  const launchDate = new Date();
-  launchDate.setDate(launchDate.getDate() + 8);
-  
   const now = new Date().getTime();
-  const difference = launchDate.getTime() - now;
+  
+  // Store launch date in localStorage if not set
+  let launchDate = localStorage.getItem('launchDate');
+  if (!launchDate) {
+    const date = new Date();
+    date.setDate(date.getDate() + 8);
+    launchDate = date.getTime().toString();
+    localStorage.setItem('launchDate', launchDate);
+  }
+
+  const difference = parseInt(launchDate) - now;
 
   if (difference > 0) {
     return {
@@ -49,18 +55,13 @@ const CountdownUnit: React.FC<CountdownUnitProps> = ({ value, label }) => {
 };
 
 const LaunchCountdown: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
 
   useEffect(() => {
-    // Initial calculation
-    setTimeLeft(calculateTimeLeft());
-
-    // Update every second
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    // Cleanup interval on unmount
     return () => clearInterval(timer);
   }, []);
 
