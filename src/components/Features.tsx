@@ -58,12 +58,7 @@ const Features: React.FC = () => {
     <section id="features" className="py-4 sm:py-8 relative overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Virgil Section */}
-        <motion.div
-          className="max-w-5xl mx-auto mb-4 sm:mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <div className="max-w-5xl mx-auto mb-8">
           <div className="retro-card p-12 relative overflow-hidden">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
@@ -80,43 +75,40 @@ const Features: React.FC = () => {
                 </p>
               </div>
               
-              <div className="relative">
-                <div className="aspect-square rounded-lg overflow-hidden pixel-border bg-primary-purple/20 relative">
+              <div className="relative w-full aspect-square">
+                <div className="absolute inset-0 rounded-lg overflow-hidden pixel-border bg-primary-purple/20">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <motion.div
-                      className="w-full h-full flex items-center justify-center"
+                      className="relative w-3/4 h-3/4 flex items-center justify-center"
+                      initial={{ y: 0 }}
                       animate={{
-                        y: [0, -8, 0],
+                        y: [0, -8, 0]
                       }}
                       transition={{
                         duration: 2.5,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
+                        repeatType: "reverse"
                       }}
                     >
-                      <FloatingCharacter className="w-3/4 h-3/4 object-contain" />
+                      <FloatingCharacter className="w-full h-full object-contain" />
                     </motion.div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
         
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
             const IconComponent = feature.Icon;
             return (
-              <motion.div
+              <div
                 key={feature.title}
                 className="floating-3d"
-                initial="offscreen"
-                whileInView="onscreen"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={cardVariants}
-                custom={index}
               >
                 <div className="retro-card p-8 h-full relative overflow-hidden group">
                   <div className="relative z-10">
@@ -135,7 +127,7 @@ const Features: React.FC = () => {
                   
                   <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -172,11 +164,8 @@ const Features: React.FC = () => {
       </div>
 
       {/* Final CTA */}
-      <motion.div
+      <div
         className="max-w-4xl mx-auto text-center mt-24 px-4"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
       >
         <h2 className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6 cyber-glitch">
           Start Your FreeWriter Adventure Today
@@ -193,7 +182,7 @@ const Features: React.FC = () => {
         >
           Coming Soon
         </a>
-      </motion.div>
+      </div>
       
       {/* Background Grid Animation */}
       <div className="absolute inset-0 -z-10 opacity-30">
