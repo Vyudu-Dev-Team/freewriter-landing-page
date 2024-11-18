@@ -5,14 +5,14 @@ const FloatingCharacter: React.FC = () => {
   const { scrollY } = useScroll();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
-  // Create dynamic scroll-based transforms
-  const y = useTransform(scrollY, [0, 1000], [0, 400]); // Follow scroll
-  const scale = useTransform(scrollY, [0, 300], [1, 0.7]); // Zoom out
-  const rotate = useTransform(scrollY, [0, 500], [0, -10]); // Slight rotation
-  const perspective = useTransform(scrollY, [0, 500], [0, 1000]); // 3D effect
-  const translateZ = useTransform(scrollY, [0, 500], [0, -200]); // Z-space movement
+  // Create dynamic scroll-based transforms with adjusted trigger points
+  const y = useTransform(scrollY, [0, 1000], [-50, 400]); // Start higher
+  const scale = useTransform(scrollY, [0, 300], [1.1, 0.7]); // Start slightly larger
+  const rotate = useTransform(scrollY, [0, 500], [0, -10]);
+  const perspective = useTransform(scrollY, [0, 500], [0, 1000]);
+  const translateZ = useTransform(scrollY, [0, 500], [0, -200]);
   
-  // Add spring physics for smoother animations
+  // Responsive spring physics
   const springY = useSpring(y, {
     stiffness: 100,
     damping: 30,
@@ -29,7 +29,7 @@ const FloatingCharacter: React.FC = () => {
     damping: 25
   });
   
-  // Floating animation (reduced amplitude when scrolling)
+  // Floating animation
   const floatingAnimation = {
     y: [0, -10, 0],
     transition: {
@@ -61,32 +61,30 @@ const FloatingCharacter: React.FC = () => {
       const centerX = canvas.width * 0.5;
       const centerY = canvas.height * 0.5;
       
-      // Base radius for the aura
-      const baseRadius = Math.min(canvas.width, canvas.height) * 0.4;
+      // Responsive base radius
+      const baseRadius = Math.min(canvas.width, canvas.height) * 
+        (window.innerWidth < 768 ? 0.45 : 0.4); // Slightly larger on mobile
       
       // Create multiple layers of aura
       for (let layer = 0; layer < 3; layer++) {
         const layerOffset = layer * 0.1;
         
-        // Create dynamic radius with wave effect
         const waveSpeed = 0.001;
-        const waveAmplitude = 20;
+        const waveAmplitude = window.innerWidth < 768 ? 15 : 20; // Adjusted for mobile
         const layerRadius = baseRadius + 
           Math.sin(time * waveSpeed + layerOffset * Math.PI * 2) * waveAmplitude;
         
-        // Create multiple gradient circles for each layer
         const numCircles = 8;
         for (let i = 0; i < numCircles; i++) {
           const angle = (i / numCircles) * Math.PI * 2 + time * 0.001;
-          const wobbleX = Math.cos(angle) * 15;
-          const wobbleY = Math.sin(angle) * 15;
+          const wobbleX = Math.cos(angle) * (window.innerWidth < 768 ? 10 : 15);
+          const wobbleY = Math.sin(angle) * (window.innerWidth < 768 ? 10 : 15);
           
           const gradient = ctx.createRadialGradient(
             centerX + wobbleX, centerY + wobbleY, 0,
             centerX + wobbleX, centerY + wobbleY, layerRadius
           );
           
-          // Use the specified purple color with varying opacity
           gradient.addColorStop(0, 'rgba(76, 42, 133, 0.15)');
           gradient.addColorStop(0.5, 'rgba(76, 42, 133, 0.08)');
           gradient.addColorStop(1, 'rgba(76, 42, 133, 0)');
@@ -104,7 +102,7 @@ const FloatingCharacter: React.FC = () => {
         }
       }
       
-      // Add outer glow effect
+      // Responsive outer glow
       const outerGlow = ctx.createRadialGradient(
         centerX, centerY, baseRadius * 0.8,
         centerX, centerY, baseRadius * 1.2
@@ -134,7 +132,14 @@ const FloatingCharacter: React.FC = () => {
 
   return (
     <motion.div
-      className="relative w-[600px] h-[779px] mx-auto sticky top-[20vh]"
+      className="relative mx-auto sticky top-[15vh] md:top-[20vh]
+                 w-[calc(100vw-2rem)] h-[calc((100vw-2rem)*1.3)] 
+                 min-w-[280px] max-w-[600px]
+                 min-h-[364px] max-h-[779px]
+                 sm:w-[440px] sm:h-[572px]
+                 md:w-[500px] md:h-[650px]
+                 lg:w-[600px] lg:h-[779px]
+                 -mt-8 sm:-mt-12 md:-mt-16"
       style={{ 
         y: springY,
         scale: springScale,
@@ -167,7 +172,7 @@ const FloatingCharacter: React.FC = () => {
           srcSet="/images/FREEWRITER_600.png 1x, /images/FREEWRITER_1200.png 2x"
           src="/images/FREEWRITER_600.png"
           alt="FreeWriter Character"
-          className="relative w-full h-full object-contain"
+          className="relative w-full h-full object-contain mx-auto"
           loading="eager"
           style={{
             transformStyle: "preserve-3d",
