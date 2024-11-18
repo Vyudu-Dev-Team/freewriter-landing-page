@@ -54,11 +54,11 @@ const cardVariants = {
 
 const Features: React.FC = () => {
   return (
-    <section id="features" className="py-16 relative overflow-hidden">
+    <section id="features" className="py-8 relative overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Virgil Section */}
         <motion.div
-          className="max-w-5xl mx-auto mb-12"
+          className="max-w-5xl mx-auto mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
