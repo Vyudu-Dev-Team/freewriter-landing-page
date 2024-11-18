@@ -27,6 +27,16 @@ const Hero: React.FC = () => {
             <span className="font-pixelsplitter text-4xl md:text-5xl text-[#D8F651] cyber-glitch">WRITER</span>
           </h1>
 
+          {/* Desktop FREEWRITER logo */}
+          <div className="hidden lg:block">
+            <ScrollAnimationWrapper animation="fadeIn">
+              <h1 className="text-center mb-8">
+                <span className="font-pixelsplitter text-6xl text-[#490BF4] cyber-glitch">FREE</span>
+                <span className="font-pixelsplitter text-6xl text-[#D8F651] cyber-glitch">WRITER</span>
+              </h1>
+            </ScrollAnimationWrapper>
+          </div>
+
           {/* Main Heading */}
           <ScrollAnimationWrapper animation="fadeUp">
             <GlitchText
