@@ -9,25 +9,22 @@ interface TimeLeft {
 }
 
 const calculateTimeLeft = () => {
+  // Set launch date to 8 days from now
   const launchDate = new Date();
   launchDate.setDate(launchDate.getDate() + 8);
-  launchDate.setHours(launchDate.getHours());
-  launchDate.setMinutes(launchDate.getMinutes());
-  launchDate.setSeconds(launchDate.getSeconds());
-
+  
   const now = new Date().getTime();
   const difference = launchDate.getTime() - now;
 
   if (difference > 0) {
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    return { days, hours, minutes, seconds };
-  } else {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+      seconds: Math.floor((difference % (1000 * 60)) / 1000)
+    };
   }
+  return { days: 0, hours: 0, minutes: 0, seconds: 0 };
 };
 
 interface CountdownUnitProps {
@@ -55,10 +52,15 @@ const LaunchCountdown: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
+    // Initial calculation
+    setTimeLeft(calculateTimeLeft());
+
+    // Update every second
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
+    // Cleanup interval on unmount
     return () => clearInterval(timer);
   }, []);
 

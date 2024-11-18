@@ -87,7 +87,8 @@ const Features: React.FC = () => {
                   whileInView="visible"
                   viewport={{ 
                     once: false,
-                    amount: 0.6
+                    amount: "some",
+                    margin: "-100px"
                   }}
                   variants={{
                     hidden: {
@@ -111,11 +112,7 @@ const Features: React.FC = () => {
                   <motion.div
                     className="absolute inset-0 flex items-center justify-center"
                     initial="hidden"
-                    whileInView="visible"
-                    viewport={{ 
-                      once: false,
-                      amount: 0.6
-                    }}
+                    animate="visible"
                     variants={{
                       hidden: {
                         scale: 0.8,
@@ -135,8 +132,8 @@ const Features: React.FC = () => {
                       }
                     }}
                   >
-                    <div className="w-4/5 h-4/5 relative flex items-center justify-center">
-                      <FloatingCharacter className="w-full h-full object-contain" />
+                    <div className="w-full h-full relative flex items-center justify-center">
+                      <FloatingCharacter className="w-4/5 h-4/5 object-contain" />
                     </div>
                   </motion.div>
                 </motion.div>
