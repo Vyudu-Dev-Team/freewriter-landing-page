@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, GamepadIcon, MessageSquare, Zap, Brain, Users } from 'lucide-react';
-import FloatingCharacter from './FloatingCharacter'; // Assuming the FloatingCharacter component is in the same directory
+import { Bot, GamepadIcon, MessageSquare, Zap, Brain, Users, Brush, Code, Wand2 } from 'lucide-react';
 
 interface Feature {
   title: string;
@@ -53,6 +52,29 @@ const cardVariants = {
   }
 };
 
+const VirgilCharacter = () => {
+  return (
+    <motion.div
+      className="relative w-full h-full flex items-center justify-center"
+      animate={{
+        y: [0, -8, 0]
+      }}
+      transition={{
+        duration: 2.5,
+        repeat: Infinity,
+        ease: "easeInOut",
+        repeatType: "reverse"
+      }}
+    >
+      <img 
+        src="/character.png" 
+        alt="Virgil Character" 
+        className="w-3/4 h-3/4 object-contain"
+      />
+    </motion.div>
+  );
+};
+
 const Features: React.FC = () => {
   return (
     <section id="features" className="py-4 sm:py-8 relative overflow-hidden">
@@ -79,21 +101,7 @@ const Features: React.FC = () => {
                 <div className="absolute inset-0 rounded-lg overflow-hidden pixel-border bg-primary-purple/20">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      className="relative w-3/4 h-3/4 flex items-center justify-center"
-                      initial={{ y: 0 }}
-                      animate={{
-                        y: [0, -8, 0]
-                      }}
-                      transition={{
-                        duration: 2.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        repeatType: "reverse"
-                      }}
-                    >
-                      <FloatingCharacter className="w-full h-full object-contain" />
-                    </motion.div>
+                    <VirgilCharacter />
                   </div>
                 </div>
               </div>
