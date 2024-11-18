@@ -58,7 +58,7 @@ const Features: React.FC = () => {
     <section id="features" className="py-4 sm:py-8 relative overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Virgil Section */}
-        <div className="max-w-5xl mx-auto mb-8">
+        <div className="max-w-5xl mx-auto mt-0 sm:mt-8">
           <div className="retro-card p-12 relative overflow-hidden">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
