@@ -85,7 +85,12 @@ const Features: React.FC = () => {
                   className="aspect-square rounded-lg overflow-hidden pixel-border bg-primary-purple/20 relative"
                   initial={{ scale: 0.5, y: 100, opacity: 0 }}
                   whileInView={{ scale: 1, y: 0, opacity: 1 }}
-                  viewport={{ once: false, margin: "-100px" }}
+                  exit={{ scale: 0.5, y: 100, opacity: 0 }}
+                  viewport={{ 
+                    once: false, 
+                    margin: "-20% 0px -20% 0px",
+                    amount: "all" 
+                  }}
                   transition={{ 
                     duration: 0.8,
                     type: "spring",
@@ -98,15 +103,22 @@ const Features: React.FC = () => {
                       className="w-full h-full flex items-center justify-center"
                       initial={{ scale: 0.8, y: 50 }}
                       whileInView={{ scale: 1, y: 0 }}
-                      viewport={{ once: false, margin: "-100px" }}
+                      exit={{ scale: 0.8, y: 50 }}
+                      viewport={{ 
+                        once: false, 
+                        margin: "-20% 0px -20% 0px",
+                        amount: "all"
+                      }}
                       transition={{
                         duration: 1,
                         type: "spring",
                         bounce: 0.4,
-                        delay: 0.2
+                        delay: 0.1
                       }}
                     >
-                      <FloatingCharacter className="w-4/5 h-4/5 object-contain" />
+                      <div className="w-4/5 h-4/5 relative flex items-center justify-center">
+                        <FloatingCharacter className="w-full h-full object-contain" />
+                      </div>
                     </motion.div>
                   </div>
                 </motion.div>
