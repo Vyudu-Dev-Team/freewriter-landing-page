@@ -132,14 +132,10 @@ const FloatingCharacter: React.FC = () => {
 
   return (
     <motion.div
-      className="relative mx-auto sticky top-[15vh] md:top-[20vh]
-                 w-[calc(100vw-2rem)] h-[calc((100vw-2rem)*1.3)] 
-                 min-w-[280px] max-w-[600px]
-                 min-h-[364px] max-h-[779px]
+      className="relative w-[600px] h-[779px] mx-auto
                  sm:w-[440px] sm:h-[572px]
                  md:w-[500px] md:h-[650px]
-                 lg:w-[600px] lg:h-[779px]
-                 -mt-8 sm:-mt-12 md:-mt-16"
+                 lg:w-[600px] lg:h-[779px]"
       style={{ 
         y: springY,
         scale: springScale,
