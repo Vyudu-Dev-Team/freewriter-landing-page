@@ -81,41 +81,16 @@ const Features: React.FC = () => {
               </div>
               
               <div className="relative">
-                <motion.div 
-                  className="aspect-square rounded-lg overflow-hidden pixel-border bg-primary-purple/20 relative"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ 
-                    once: false,
-                    margin: "-100px"
-                  }}
-                  variants={{
-                    hidden: {
-                      scale: 0.5,
-                      y: 100,
-                      opacity: 0
-                    },
-                    visible: {
-                      scale: 1,
-                      y: 0,
-                      opacity: 1,
-                      transition: {
-                        duration: 0.8,
-                        type: "spring",
-                        bounce: 0.3
-                      }
-                    }
-                  }}
-                >
+                <div className="aspect-square rounded-lg overflow-hidden pixel-border bg-primary-purple/20 relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <motion.div
                       className="w-full h-full flex items-center justify-center"
                       animate={{
-                        y: [0, -10, 0],
+                        y: [0, -8, 0],
                       }}
                       transition={{
-                        duration: 2,
+                        duration: 2.5,
                         repeat: Infinity,
                         ease: "easeInOut"
                       }}
@@ -123,7 +98,7 @@ const Features: React.FC = () => {
                       <FloatingCharacter className="w-3/4 h-3/4 object-contain" />
                     </motion.div>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </div>
           </div>
