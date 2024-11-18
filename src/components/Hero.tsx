@@ -91,7 +91,7 @@ const Hero: React.FC = () => {
 
           {/* Floating Character */}
           <ScrollAnimationWrapper animation="fadeIn" delay={1.2}>
-            <div className="relative -mt-8 sm:mt-0 md:mt-0">
+            <div className="relative -mt-32 sm:-mt-8 md:mt-0">
               <FloatingCharacter />
             </div>
           </ScrollAnimationWrapper>
