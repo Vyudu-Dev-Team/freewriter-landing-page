@@ -53,27 +53,10 @@ const cardVariants = {
   }
 };
 
-const StaticCharacter: React.FC = () => {
-  return (
-    <div className="w-3/4 h-3/4">
-      <canvas 
-        width="512" 
-        height="512" 
-        style={{
-          width: '100%',
-          height: '100%',
-          background: `url('/character.png') no-repeat center center`,
-          backgroundSize: 'contain'
-        }}
-      />
-    </div>
-  );
-};
-
 const VirgilCharacter = () => {
   return (
     <motion.div
-      className="relative w-full h-full flex items-center justify-center"
+      className="w-full h-full flex items-center justify-center"
       animate={{
         y: [0, -8, 0]
       }}
@@ -84,7 +67,9 @@ const VirgilCharacter = () => {
         repeatType: "reverse"
       }}
     >
-      <StaticCharacter />
+      <div className="w-full h-full relative">
+        <FloatingCharacter />
+      </div>
     </motion.div>
   );
 };
