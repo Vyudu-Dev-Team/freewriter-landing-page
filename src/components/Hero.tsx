@@ -20,75 +20,83 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Main Heading */}
-          <ScrollAnimationWrapper animation="fadeUp">
-            <GlitchText
-              text="UNLEASH YOUR CREATIVITY"
-              className="font-pixelsplitter text-4xl md:text-6xl lg:text-7xl text-primary-lime mb-6"
-              delay={0.2}
-            />
-          </ScrollAnimationWrapper>
-
-          {/* Subheading */}
-          <ScrollAnimationWrapper animation="fadeUp" delay={0.4}>
-            <h2 className="font-sans font-bold text-3xl text-support-gray mb-6">
-              Experience the future of writing with AI-powered assistance
-            </h2>
-          </ScrollAnimationWrapper>
-
-          {/* Body Text */}
-          <ScrollAnimationWrapper animation="fadeUp" delay={0.6}>
-            <p className="font-sans text-lg text-support-gray mb-8">
-              Transform your writing process into an engaging and productive experience with our AI companion.
-            </p>
-          </ScrollAnimationWrapper>
-
-          {/* Feature Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <ScrollAnimationWrapper animation="slideIn" delay={0.6}>
-              <CyberCard className="p-6 bg-support-black/50 rounded-lg">
-                <h3 className="font-pixelsplitter text-xl text-primary-lime mb-3">
-                  AI Companion
-                </h3>
-                <p className="text-support-gray">
-                  Write alongside Virgil, your personal AI writing assistant
-                </p>
-              </CyberCard>
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          {/* Left Column - Text Content */}
+          <div className="text-center lg:text-left">
+            <h1 className="font-pixelsplitter text-4xl md:text-5xl text-primary-lime mb-6 cyber-glitch block lg:hidden">
+              FREEWRITER
+            </h1>
+            <ScrollAnimationWrapper animation="fadeUp">
+              <GlitchText
+                text="UNLEASH YOUR CREATIVITY"
+                className="font-pixelsplitter text-4xl md:text-6xl lg:text-7xl text-primary-lime mb-6"
+                delay={0.2}
+              />
             </ScrollAnimationWrapper>
 
-            <ScrollAnimationWrapper animation="slideIn" delay={0.8}>
-              <CyberCard className="p-6 bg-support-black/50 rounded-lg">
-                <h3 className="font-pixelsplitter text-xl text-primary-lime mb-3">
-                  Smart Framework
-                </h3>
-                <p className="text-support-gray">
-                  Structured writing tools that adapt to your style
-                </p>
-              </CyberCard>
+            {/* Subheading */}
+            <ScrollAnimationWrapper animation="fadeUp" delay={0.4}>
+              <h2 className="font-sans font-bold text-3xl text-support-gray mb-6">
+                Experience the future of writing with AI-powered assistance
+              </h2>
+            </ScrollAnimationWrapper>
+
+            {/* Body Text */}
+            <ScrollAnimationWrapper animation="fadeUp" delay={0.6}>
+              <p className="font-sans text-lg text-support-gray mb-8">
+                Transform your writing process into an engaging and productive experience with our AI companion.
+              </p>
+            </ScrollAnimationWrapper>
+
+            {/* CTA Button */}
+            <ScrollAnimationWrapper animation="scale" delay={1}>
+              <a
+                href="#signup"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
+                         hover:bg-[#D8F651]/90 transition-colors duration-300 
+                         retro-card floating-3d font-pixelsplitter text-xl
+                         font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20
+                         mb-4 sm:mb-8"
+              >
+                Coming Soon
+              </a>
             </ScrollAnimationWrapper>
           </div>
 
-          {/* CTA Button */}
-          <ScrollAnimationWrapper animation="scale" delay={1}>
-            <a
-              href="#signup"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
-                       hover:bg-[#D8F651]/90 transition-colors duration-300 
-                       retro-card floating-3d font-pixelsplitter text-xl
-                       font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20
-                       mb-4 sm:mb-8"
-            >
-              Coming Soon
-            </a>
-          </ScrollAnimationWrapper>
+          {/* Right Column - Feature Cards */}
+          <div className="lg:pl-8">
+            {/* Feature Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <ScrollAnimationWrapper animation="slideIn" delay={0.6}>
+                <CyberCard className="p-6 bg-support-black/50 rounded-lg">
+                  <h3 className="font-pixelsplitter text-xl text-primary-lime mb-3">
+                    AI Companion
+                  </h3>
+                  <p className="text-support-gray">
+                    Write alongside Virgil, your personal AI writing assistant
+                  </p>
+                </CyberCard>
+              </ScrollAnimationWrapper>
 
-          {/* Floating Character */}
-          <ScrollAnimationWrapper animation="fadeIn" delay={1.2}>
-            <div className="relative -mt-8 sm:mt-0 md:mt-0">
-              <FloatingCharacter />
+              <ScrollAnimationWrapper animation="slideIn" delay={0.8}>
+                <CyberCard className="p-6 bg-support-black/50 rounded-lg">
+                  <h3 className="font-pixelsplitter text-xl text-primary-lime mb-3">
+                    Smart Framework
+                  </h3>
+                  <p className="text-support-gray">
+                    Structured writing tools that adapt to your style
+                  </p>
+                </CyberCard>
+              </ScrollAnimationWrapper>
             </div>
-          </ScrollAnimationWrapper>
+
+            {/* Floating Character */}
+            <ScrollAnimationWrapper animation="fadeIn" delay={1.2}>
+              <div className="relative -mt-8 sm:mt-0 md:mt-0">
+                <FloatingCharacter />
+              </div>
+            </ScrollAnimationWrapper>
+          </div>
         </div>
       </div>
 
