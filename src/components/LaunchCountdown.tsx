@@ -90,7 +90,7 @@ const LaunchCountdown: React.FC = () => {
             </h2>
           </ScrollAnimationWrapper>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8">
             {[
               { label: 'Days', value: timeLeft.days },
               { label: 'Hours', value: timeLeft.hours },
@@ -111,17 +111,12 @@ const LaunchCountdown: React.FC = () => {
             ))}
           </div>
 
-          <ScrollAnimationWrapper animation="fadeUp" delay={0.6}>
-            <a
-              href="#signup"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
-                       hover:bg-[#D8F651]/90 transition-colors duration-300 
-                       retro-card floating-3d font-pixelsplitter text-xl
-                       font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20"
-            >
-              Coming Soon
-            </a>
-          </ScrollAnimationWrapper>
+          {/* Blue light streak */}
+          <div className="relative h-24 overflow-hidden my-4">
+            <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-[#490BF4]/40 to-transparent top-1/2 transform -translate-y-1/2">
+              <div className="absolute inset-0 animate-pulse-slow opacity-70"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

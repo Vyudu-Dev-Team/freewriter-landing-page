@@ -131,52 +131,51 @@ const FloatingCharacter: React.FC = () => {
   }, []);
 
   return (
-    <motion.div
-      className="relative w-[600px] h-[779px] mx-auto
-                 sm:w-[440px] sm:h-[572px]
-                 md:w-[500px] md:h-[650px]
-                 lg:w-[600px] lg:h-[779px]"
-      style={{ 
-        y: springY,
-        scale: springScale,
-        rotateX: springRotate,
-        perspective,
-        transformStyle: "preserve-3d",
-        translateZ
-      }}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-    >
+    <div className="relative w-full h-full flex items-center justify-center">
       <motion.div
-        className="relative w-full h-full"
-        animate={floatingAnimation}
-        style={{
+        className="relative w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] mx-auto"
+        style={{ 
+          y: springY,
+          scale: springScale,
+          rotateX: springRotate,
+          perspective,
           transformStyle: "preserve-3d",
-          backfaceVisibility: "hidden"
+          translateZ
         }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       >
-        {/* Canvas for aura effect */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ zIndex: -1 }}
-        />
-        
-        {/* Character image */}
-        <img
-          srcSet="/images/FREEWRITER_600.png 1x, /images/FREEWRITER_1200.png 2x"
-          src="/images/FREEWRITER_600.png"
-          alt="FreeWriter Character"
-          className="relative w-full h-full object-contain mx-auto"
-          loading="eager"
+        <motion.div
+          className="relative w-full h-full"
+          animate={floatingAnimation}
           style={{
             transformStyle: "preserve-3d",
             backfaceVisibility: "hidden"
           }}
-        />
+        >
+          {/* Canvas for aura effect */}
+          <canvas
+            ref={canvasRef}
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ zIndex: -1 }}
+          />
+          
+          {/* Character image */}
+          <img
+            srcSet="/images/FREEWRITER_600.png 1x, /images/FREEWRITER_1200.png 2x"
+            src="/images/FREEWRITER_600.png"
+            alt="FreeWriter Character"
+            className="relative w-full h-full object-contain mx-auto"
+            loading="eager"
+            style={{
+              transformStyle: "preserve-3d",
+              backfaceVisibility: "hidden"
+            }}
+          />
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 

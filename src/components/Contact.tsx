@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
+    <section id="contact" className="py-16 relative overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -29,13 +29,22 @@ const Contact: React.FC = () => {
             >
               <a 
                 href="#signup" 
-                className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
+                         hover:bg-[#D8F651]/90 transition-colors duration-300 
+                         retro-card floating-3d font-pixelsplitter text-xl
+                         font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20"
               >
-                <span className="font-pixelsplitter text-xl">Start Writing Now</span>
-                <ArrowRight className="w-6 h-6" />
+                Coming Soon
               </a>
             </motion.div>
           </motion.div>
+        </div>
+      </div>
+      
+      {/* Blue light streak */}
+      <div className="relative h-24 overflow-hidden my-4">
+        <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-[#490BF4]/40 to-transparent top-1/2 transform -translate-y-1/2">
+          <div className="absolute inset-0 animate-pulse-slow opacity-70"></div>
         </div>
       </div>
       
