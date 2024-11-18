@@ -54,11 +54,11 @@ const cardVariants = {
 
 const Features: React.FC = () => {
   return (
-    <section id="features" className="py-32 relative overflow-hidden">
+    <section id="features" className="py-16 relative overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Virgil Section */}
         <motion.div
-          className="max-w-5xl mx-auto mb-24"
+          className="max-w-5xl mx-auto mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -124,7 +124,37 @@ const Features: React.FC = () => {
           })}
         </div>
       </div>
-      
+
+      {/* Animated Stars Background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="stars-container">
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={i}
+              className="star"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                width: `${Math.random() * 2 + 1}px`,
+                height: `${Math.random() * 2 + 1}px`
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Animated Light Flare */}
+      <div className="relative h-16 overflow-hidden my-2">
+        <div 
+          className="absolute w-full h-1.5 top-1/2 transform -translate-y-1/2"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(73, 11, 244, 0.2) 20%, rgba(73, 11, 244, 0.6) 50%, rgba(73, 11, 244, 0.2) 80%, transparent 100%)',
+            animation: 'flareAnimation 3s ease-in-out infinite'
+          }}
+        />
+      </div>
+
       {/* Final CTA */}
       <motion.div
         className="max-w-4xl mx-auto text-center mt-24 px-4"
