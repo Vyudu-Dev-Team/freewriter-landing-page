@@ -26,9 +26,7 @@ const FloatingCharacter: React.FC = () => {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let angle = 0;
-    const numArcs = 3;
-    const arcSpacing = Math.PI * 2 / numArcs;
+    let offset = 0;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -36,46 +34,55 @@ const FloatingCharacter: React.FC = () => {
       canvas.height = rect.height;
     };
 
-    const drawVoltex = () => {
+    const drawPenElectricity = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
+      // Adjusted pen position based on the image
+      const penStartX = canvas.width * 0.32; // Left side of pen
+      const penStartY = canvas.height * 0.35; // Top of pen
+      const penLength = canvas.height * 0.5; // Length of pen
       
-      // Draw multiple electric arcs
-      for (let i = 0; i < numArcs; i++) {
-        const arcAngle = angle + (i * arcSpacing);
-        
-        // Create spiral effect
+      // Draw multiple electricity strands
+      const numStrands = 3;
+      
+      for (let strand = 0; strand < numStrands; strand++) {
+        const segments = 25;
         ctx.beginPath();
-        const spiralRadius = 100 + Math.sin(angle * 2) * 20;
         
-        for (let j = 0; j < 30; j++) {
-          const segmentAngle = arcAngle + (j * 0.1);
-          const radius = spiralRadius + j * 3;
-          const wobble = Math.sin(angle * 3 + j * 0.5) * 10;
+        // Each strand has a different phase
+        const phaseOffset = (strand / numStrands) * Math.PI * 2;
+        
+        for (let i = 0; i <= segments; i++) {
+          const progress = i / segments;
+          // Larger wave effect
+          const wave = Math.sin(progress * Math.PI * 6 + offset + phaseOffset) * 8;
+          // Add some random jitter
+          const jitter = Math.random() * 2 - 1;
           
-          const x = centerX + Math.cos(segmentAngle) * (radius + wobble);
-          const y = centerY + Math.sin(segmentAngle) * (radius + wobble);
+          const x = penStartX + wave + jitter;
+          const y = penStartY + (penLength * progress);
           
-          if (j === 0) {
+          if (i === 0) {
             ctx.moveTo(x, y);
           } else {
-            // Add jagged lightning effect
-            const jitter = Math.random() * 5;
-            ctx.lineTo(x + Math.random() * jitter - jitter/2, 
-                      y + Math.random() * jitter - jitter/2);
+            // Add more jagged effect
+            const zag = Math.random() * 4 - 2;
+            ctx.lineTo(x + zag, y);
           }
         }
         
-        // Create electric gradient
+        // Create gradient for the electricity
         const gradient = ctx.createLinearGradient(
-          centerX - spiralRadius, centerY - spiralRadius,
-          centerX + spiralRadius, centerY + spiralRadius
+          penStartX, penStartY,
+          penStartX, penStartY + penLength
         );
-        gradient.addColorStop(0, 'rgba(216, 246, 81, 0)');
-        gradient.addColorStop(0.5, 'rgba(216, 246, 81, 0.8)');
-        gradient.addColorStop(1, 'rgba(216, 246, 81, 0)');
+        
+        // Brighter, more electric blue colors
+        gradient.addColorStop(0, 'rgba(0, 191, 255, 0)');
+        gradient.addColorStop(0.2, 'rgba(0, 191, 255, 0.8)');
+        gradient.addColorStop(0.5, 'rgba(30, 255, 255, 0.9)');
+        gradient.addColorStop(0.8, 'rgba(0, 191, 255, 0.8)');
+        gradient.addColorStop(1, 'rgba(0, 191, 255, 0)');
         
         ctx.strokeStyle = gradient;
         ctx.lineWidth = 2;
@@ -83,22 +90,22 @@ const FloatingCharacter: React.FC = () => {
         
         // Add glow effect
         ctx.save();
-        ctx.filter = 'blur(8px)';
-        ctx.strokeStyle = 'rgba(216, 246, 81, 0.3)';
-        ctx.lineWidth = 4;
+        ctx.filter = 'blur(3px)';
+        ctx.strokeStyle = 'rgba(0, 225, 255, 0.4)';
+        ctx.lineWidth = 6;
         ctx.stroke();
         ctx.restore();
       }
       
-      // Update rotation
-      angle += 0.02;
+      // Update animation
+      offset += 0.15; // Slightly faster animation
       
-      animationFrameId = requestAnimationFrame(drawVoltex);
+      animationFrameId = requestAnimationFrame(drawPenElectricity);
     };
 
     window.addEventListener('resize', resize);
     resize();
-    drawVoltex();
+    drawPenElectricity();
 
     return () => {
       window.removeEventListener('resize', resize);
@@ -118,27 +125,21 @@ const FloatingCharacter: React.FC = () => {
         className="relative w-full h-full"
         animate={floatingAnimation}
       >
-        {/* Canvas for voltex effect */}
+        {/* Character image */}
+        <img
+          srcSet="/images/FREEWRITER_600.png 1x, /images/FREEWRITER_1200.png 2x"
+          src="/images/FREEWRITER_600.png"
+          alt="FreeWriter Character"
+          className="relative w-full h-full object-contain"
+          loading="eager"
+        />
+        
+        {/* Canvas for pen electricity effect */}
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full pointer-events-none"
           style={{ zIndex: 1 }}
         />
-        
-        {/* Character image */}
-        <div className="relative w-full h-full">
-          <img
-            srcSet="/images/FREEWRITER_600.png 1x, /images/FREEWRITER_1200.png 2x"
-            src="/images/FREEWRITER_600.png"
-            alt="FreeWriter Character"
-            className="w-full h-full object-contain mix-blend-normal"
-            style={{
-              imageRendering: 'auto',
-              WebkitMaskImage: '-webkit-radial-gradient(white, black)', // Helps with Safari transparency
-            }}
-            loading="eager"
-          />
-        </div>
       </motion.div>
     </motion.div>
   );

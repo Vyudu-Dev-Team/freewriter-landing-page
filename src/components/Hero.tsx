@@ -82,18 +82,6 @@ const Hero: React.FC = () => {
           <ScrollAnimationWrapper animation="fadeIn" delay={1.2}>
             <div className="relative">
               <FloatingCharacter />
-              {/* 3D Grid Background */}
-              <div className="absolute inset-0 -z-10">
-                <div 
-                  className="absolute inset-0" 
-                  style={{
-                    backgroundImage: `
-                      linear-gradient(to right, rgba(73, 11, 244, 0.05), rgba(216, 246, 81, 0.05))
-                    `,
-                    backgroundSize: '100px 100px'
-                  }}
-                />
-              </div>
             </div>
           </ScrollAnimationWrapper>
         </div>
