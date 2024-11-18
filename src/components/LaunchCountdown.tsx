@@ -10,21 +10,26 @@ interface TimeLeft {
 
 const LaunchCountdown: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
-    days: 0,
+    days: 8,
     hours: 0,
     minutes: 0,
     seconds: 0
   });
 
   useEffect(() => {
-    // Set launch date to September 1, 2024
-    const launchDate = new Date('2024-09-01T00:00:00').getTime();
+    // Set launch date to 8 days from now
+    const launchDate = new Date();
+    launchDate.setDate(launchDate.getDate() + 8);
+    launchDate.setHours(launchDate.getHours());
+    launchDate.setMinutes(launchDate.getMinutes());
+    launchDate.setSeconds(launchDate.getSeconds());
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
-      const difference = launchDate - now;
+      const difference = launchDate.getTime() - now;
 
       if (difference > 0) {
+        // Calculate exact time units
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
@@ -32,7 +37,7 @@ const LaunchCountdown: React.FC = () => {
 
         setTimeLeft({ days, hours, minutes, seconds });
       } else {
-        // If countdown is finished
+        // Reset to zeros when countdown finishes
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
     };
@@ -43,7 +48,6 @@ const LaunchCountdown: React.FC = () => {
     // Update every second
     const timer = setInterval(calculateTimeLeft, 1000);
 
-    // Cleanup
     return () => clearInterval(timer);
   }, []);
 
@@ -77,62 +81,47 @@ const LaunchCountdown: React.FC = () => {
   );
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-20 relative">
       <div className="container mx-auto px-4">
-        <ScrollAnimationWrapper animation="fadeUp">
-          <h2 className="font-pixel text-4xl text-center text-primary-lime mb-12">
-            LAUNCHING IN
-          </h2>
-        </ScrollAnimationWrapper>
-
-        {/* Countdown Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          <ScrollAnimationWrapper animation="fadeUp" delay={0.1}>
-            <TimeUnit value={timeLeft.days} label="Days" />
-          </ScrollAnimationWrapper>
-          
+        <div className="max-w-4xl mx-auto text-center">
           <ScrollAnimationWrapper animation="fadeUp" delay={0.2}>
-            <TimeUnit value={timeLeft.hours} label="Hours" />
+            <h2 className="font-pixelsplitter text-4xl text-primary-lime mb-12">
+              Launching Soon
+            </h2>
           </ScrollAnimationWrapper>
-          
-          <ScrollAnimationWrapper animation="fadeUp" delay={0.3}>
-            <TimeUnit value={timeLeft.minutes} label="Minutes" />
-          </ScrollAnimationWrapper>
-          
-          <ScrollAnimationWrapper animation="fadeUp" delay={0.4}>
-            <TimeUnit value={timeLeft.seconds} label="Seconds" />
-          </ScrollAnimationWrapper>
-        </div>
 
-        {/* Decorative elements */}
-        <div className="absolute inset-0 -z-10">
-          {/* Grid lines */}
-          <div className="absolute inset-0" 
-               style={{
-                 backgroundImage: `
-                   linear-gradient(to right, ${['#490BF4', '#D8F651']
-                     .map(color => `${color}05`).join(', ')})
-                 `,
-                 backgroundSize: '100px 100px',
-                 opacity: 0.1
-               }} 
-          />
-          
-          {/* Glowing orbs */}
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-32 h-32 rounded-full"
-              style={{
-                background: `radial-gradient(circle, ${['#490BF4', '#D8F651'][i % 2]}20, transparent 70%)`,
-                filter: 'blur(40px)',
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                transform: 'translate(-50%, -50%)',
-                animation: `pulse ${3 + i}s ease-in-out infinite alternate`
-              }}
-            />
-          ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12">
+            {[
+              { label: 'Days', value: timeLeft.days },
+              { label: 'Hours', value: timeLeft.hours },
+              { label: 'Minutes', value: timeLeft.minutes },
+              { label: 'Seconds', value: timeLeft.seconds }
+            ].map(({ label, value }) => (
+              <ScrollAnimationWrapper
+                key={label}
+                animation="scale"
+                delay={0.4}
+                className="bg-support-black/30 p-4 sm:p-6 rounded-lg backdrop-blur-sm"
+              >
+                <div className="font-pixel text-3xl sm:text-4xl md:text-5xl text-primary-lime mb-2">
+                  {value.toString().padStart(2, '0')}
+                </div>
+                <div className="text-support-gray font-medium">{label}</div>
+              </ScrollAnimationWrapper>
+            ))}
+          </div>
+
+          <ScrollAnimationWrapper animation="fadeUp" delay={0.6}>
+            <a
+              href="#signup"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
+                       hover:bg-[#D8F651]/90 transition-colors duration-300 
+                       retro-card floating-3d font-pixelsplitter text-xl
+                       font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20"
+            >
+              Coming Soon
+            </a>
+          </ScrollAnimationWrapper>
         </div>
       </div>
     </section>

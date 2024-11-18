@@ -74,8 +74,9 @@ const Hero: React.FC = () => {
               href="#signup"
               className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
                        hover:bg-[#D8F651]/90 transition-colors duration-300 
-                       retro-card floating-3d font-pixelsplitter text-xl 
-                       font-bold tracking-wider shadow-lg"
+                       retro-card floating-3d font-pixelsplitter text-xl
+                       font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20
+                       mb-16"
             >
               Coming Soon
             </a>
@@ -95,30 +96,6 @@ const Hero: React.FC = () => {
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
           <div className="absolute inset-0 bg-gradient-to-b from-primary-purple/5 to-transparent" />
         </ScrollAnimationWrapper>
-        
-        <div className="absolute inset-0">
-          {[...Array(3)].map((_, i) => (
-            <ScrollAnimationWrapper
-              key={i}
-              animation="fadeIn"
-              delay={0.3 + i * 0.2}
-              className="absolute"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                transform: 'translate(-50%, -50%)'
-              }}
-            >
-              <div
-                className="w-32 h-32 bg-primary-lime/5 rounded-full"
-                style={{
-                  filter: 'blur(40px)',
-                  animation: `pulse ${3 + i}s ease-in-out infinite alternate`
-                }}
-              />
-            </ScrollAnimationWrapper>
-          ))}
-        </div>
       </div>
     </section>
   );
