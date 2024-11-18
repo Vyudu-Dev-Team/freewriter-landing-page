@@ -23,8 +23,9 @@ const Hero: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Column - Text Content */}
           <div className="text-center lg:text-left">
-            <h1 className="font-pixelsplitter text-4xl md:text-5xl text-primary-lime mb-6 cyber-glitch block lg:hidden">
-              FREEWRITER
+            <h1 className="block lg:hidden mb-6">
+              <span className="font-pixelsplitter text-4xl md:text-5xl text-[#490BF4] cyber-glitch">FREE</span>
+              <span className="font-pixelsplitter text-4xl md:text-5xl text-[#D8F651] cyber-glitch">WRITER</span>
             </h1>
             <ScrollAnimationWrapper animation="fadeUp">
               <GlitchText
