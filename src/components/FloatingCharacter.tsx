@@ -1,16 +1,37 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 const FloatingCharacter: React.FC = () => {
   const { scrollY } = useScroll();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
-  // Create smooth parallax effect based on scroll
-  const y = useTransform(scrollY, [0, 1000], [0, -100]);
+  // Create dynamic scroll-based transforms
+  const y = useTransform(scrollY, [0, 1000], [0, 400]); // Follow scroll
+  const scale = useTransform(scrollY, [0, 300], [1, 0.7]); // Zoom out
+  const rotate = useTransform(scrollY, [0, 500], [0, -10]); // Slight rotation
+  const perspective = useTransform(scrollY, [0, 500], [0, 1000]); // 3D effect
+  const translateZ = useTransform(scrollY, [0, 500], [0, -200]); // Z-space movement
   
-  // Floating animation
+  // Add spring physics for smoother animations
+  const springY = useSpring(y, {
+    stiffness: 100,
+    damping: 30,
+    mass: 1
+  });
+  
+  const springScale = useSpring(scale, {
+    stiffness: 200,
+    damping: 30
+  });
+
+  const springRotate = useSpring(rotate, {
+    stiffness: 150,
+    damping: 25
+  });
+  
+  // Floating animation (reduced amplitude when scrolling)
   const floatingAnimation = {
-    y: [0, -20, 0],
+    y: [0, -10, 0],
     transition: {
       duration: 4,
       repeat: Infinity,
@@ -45,7 +66,7 @@ const FloatingCharacter: React.FC = () => {
       
       // Create multiple layers of aura
       for (let layer = 0; layer < 3; layer++) {
-        const layerOffset = layer * 0.1; // Offset each layer
+        const layerOffset = layer * 0.1;
         
         // Create dynamic radius with wave effect
         const waveSpeed = 0.001;
@@ -60,22 +81,15 @@ const FloatingCharacter: React.FC = () => {
           const wobbleX = Math.cos(angle) * 15;
           const wobbleY = Math.sin(angle) * 15;
           
-          // Create radial gradient
           const gradient = ctx.createRadialGradient(
             centerX + wobbleX, centerY + wobbleY, 0,
             centerX + wobbleX, centerY + wobbleY, layerRadius
           );
           
-          // Alternate between blue and yellow colors
-          if (i % 2 === 0) {
-            gradient.addColorStop(0, 'rgba(0, 191, 255, 0.1)');
-            gradient.addColorStop(0.5, 'rgba(0, 191, 255, 0.05)');
-            gradient.addColorStop(1, 'rgba(0, 191, 255, 0)');
-          } else {
-            gradient.addColorStop(0, 'rgba(216, 246, 81, 0.1)');
-            gradient.addColorStop(0.5, 'rgba(216, 246, 81, 0.05)');
-            gradient.addColorStop(1, 'rgba(216, 246, 81, 0)');
-          }
+          // Use the specified purple color with varying opacity
+          gradient.addColorStop(0, 'rgba(76, 42, 133, 0.15)');
+          gradient.addColorStop(0.5, 'rgba(76, 42, 133, 0.08)');
+          gradient.addColorStop(1, 'rgba(76, 42, 133, 0)');
           
           ctx.fillStyle = gradient;
           ctx.beginPath();
@@ -95,8 +109,8 @@ const FloatingCharacter: React.FC = () => {
         centerX, centerY, baseRadius * 0.8,
         centerX, centerY, baseRadius * 1.2
       );
-      outerGlow.addColorStop(0, 'rgba(0, 191, 255, 0.1)');
-      outerGlow.addColorStop(0.5, 'rgba(216, 246, 81, 0.05)');
+      outerGlow.addColorStop(0, 'rgba(76, 42, 133, 0.12)');
+      outerGlow.addColorStop(0.5, 'rgba(76, 42, 133, 0.06)');
       outerGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
       
       ctx.fillStyle = outerGlow;
@@ -104,7 +118,7 @@ const FloatingCharacter: React.FC = () => {
       ctx.arc(centerX, centerY, baseRadius * 1.2, 0, Math.PI * 2);
       ctx.fill();
       
-      time += 16; // Approximately 60fps
+      time += 16;
       animationFrameId = requestAnimationFrame(drawAura);
     };
 
@@ -120,8 +134,15 @@ const FloatingCharacter: React.FC = () => {
 
   return (
     <motion.div
-      className="relative w-[600px] h-[779px] mx-auto"
-      style={{ y }}
+      className="relative w-[600px] h-[779px] mx-auto sticky top-[20vh]"
+      style={{ 
+        y: springY,
+        scale: springScale,
+        rotateX: springRotate,
+        perspective,
+        transformStyle: "preserve-3d",
+        translateZ
+      }}
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -129,6 +150,10 @@ const FloatingCharacter: React.FC = () => {
       <motion.div
         className="relative w-full h-full"
         animate={floatingAnimation}
+        style={{
+          transformStyle: "preserve-3d",
+          backfaceVisibility: "hidden"
+        }}
       >
         {/* Canvas for aura effect */}
         <canvas
@@ -144,6 +169,10 @@ const FloatingCharacter: React.FC = () => {
           alt="FreeWriter Character"
           className="relative w-full h-full object-contain"
           loading="eager"
+          style={{
+            transformStyle: "preserve-3d",
+            backfaceVisibility: "hidden"
+          }}
         />
       </motion.div>
     </motion.div>
