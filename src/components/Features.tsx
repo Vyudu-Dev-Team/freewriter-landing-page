@@ -81,51 +81,65 @@ const Features: React.FC = () => {
               </div>
               
               <div className="relative">
-                <AnimatePresence mode="wait">
-                  <motion.div 
-                    key="virgil-container"
-                    className="aspect-square rounded-lg overflow-hidden pixel-border bg-primary-purple/20 relative"
-                    initial={{ scale: 0.5, y: 100, opacity: 0 }}
-                    whileInView={{ scale: 1, y: 0, opacity: 1 }}
-                    exit={{ scale: 0.5, y: 100, opacity: 0 }}
+                <motion.div 
+                  className="aspect-square rounded-lg overflow-hidden pixel-border bg-primary-purple/20 relative"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ 
+                    once: false,
+                    amount: 0.6
+                  }}
+                  variants={{
+                    hidden: {
+                      scale: 0.5,
+                      y: 100,
+                      opacity: 0
+                    },
+                    visible: {
+                      scale: 1,
+                      y: 0,
+                      opacity: 1,
+                      transition: {
+                        duration: 0.8,
+                        type: "spring",
+                        bounce: 0.3
+                      }
+                    }
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ 
-                      once: false, 
-                      amount: 0.8,
-                      margin: "0px 0px -200px 0px"
+                      once: false,
+                      amount: 0.6
                     }}
-                    transition={{ 
-                      duration: 0.8,
-                      type: "spring",
-                      bounce: 0.3
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-transparent" />
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key="virgil-character"
-                        className="absolute inset-0 flex items-center justify-center"
-                        initial={{ scale: 0.8, y: 50, opacity: 0 }}
-                        whileInView={{ scale: 1, y: 0, opacity: 1 }}
-                        exit={{ scale: 0.8, y: 50, opacity: 0 }}
-                        viewport={{ 
-                          once: false,
-                          amount: 0.8,
-                          margin: "0px 0px -200px 0px"
-                        }}
-                        transition={{
+                    variants={{
+                      hidden: {
+                        scale: 0.8,
+                        y: 50,
+                        opacity: 0
+                      },
+                      visible: {
+                        scale: 1,
+                        y: 0,
+                        opacity: 1,
+                        transition: {
                           duration: 0.8,
                           type: "spring",
                           bounce: 0.4,
                           delay: 0.1
-                        }}
-                      >
-                        <div className="w-4/5 h-4/5 relative flex items-center justify-center">
-                          <FloatingCharacter className="w-full h-full object-contain" />
-                        </div>
-                      </motion.div>
-                    </AnimatePresence>
+                        }
+                      }
+                    }}
+                  >
+                    <div className="w-4/5 h-4/5 relative flex items-center justify-center">
+                      <FloatingCharacter className="w-full h-full object-contain" />
+                    </div>
                   </motion.div>
-                </AnimatePresence>
+                </motion.div>
               </div>
             </div>
           </div>
