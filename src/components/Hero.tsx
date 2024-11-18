@@ -11,8 +11,8 @@ const Hero: React.FC = () => {
       {/* Main Title */}
       <div className="w-full text-center mb-8 md:mb-12">
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
-          <h1 className="font-pixel font-bold text-4xl cyber-glitch relative">
-            <span className="text-[#D8F651]">FREE</span><span className="text-[#490BF4]">WRITER</span>
+          <h1 className="font-pixel font-bold text-4xl cyber-glitch relative sm:text-4xl">
+            <span className="text-[#D8F651] font-pixelsplitter">FREE</span><span className="text-[#490BF4] font-pixelsplitter">WRITER</span>
             <div className="absolute -inset-1 bg-primary-purple/20 -z-10 blur-lg"></div>
           </h1>
         </ScrollAnimationWrapper>
@@ -76,7 +76,7 @@ const Hero: React.FC = () => {
                        hover:bg-[#D8F651]/90 transition-colors duration-300 
                        retro-card floating-3d font-pixelsplitter text-xl
                        font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20
-                       mb-8"
+                       mb-4 sm:mb-8"
             >
               Coming Soon
             </a>
@@ -84,7 +84,7 @@ const Hero: React.FC = () => {
 
           {/* Floating Character */}
           <ScrollAnimationWrapper animation="fadeIn" delay={1.2}>
-            <div className="relative -mt-4 md:mt-0">
+            <div className="relative -mt-8 sm:mt-0 md:mt-0">
               <FloatingCharacter />
             </div>
           </ScrollAnimationWrapper>
