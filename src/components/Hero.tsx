@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { ScrollAnimationWrapper, GlitchText, CyberCard } from './ScrollAnimations';
+import FloatingCharacter from './FloatingCharacter';
 import '../styles/fonts.css';
 
 const Hero: React.FC = () => {
@@ -71,10 +72,29 @@ const Hero: React.FC = () => {
           <ScrollAnimationWrapper animation="scale" delay={1}>
             <a
               href="#signup"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d font-pixelsplitter text-xl"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-primary-purple rounded-lg hover:bg-primary-lime/90 transition-colors duration-300 retro-card floating-3d font-pixelsplitter text-xl mb-32"
             >
               Start Writing Now
             </a>
+          </ScrollAnimationWrapper>
+
+          {/* Floating Character */}
+          <ScrollAnimationWrapper animation="fadeIn" delay={1.2}>
+            <div className="relative">
+              <FloatingCharacter />
+              {/* 3D Grid Background */}
+              <div className="absolute inset-0 -z-10">
+                <div 
+                  className="absolute inset-0" 
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(to right, rgba(73, 11, 244, 0.05), rgba(216, 246, 81, 0.05))
+                    `,
+                    backgroundSize: '100px 100px'
+                  }}
+                />
+              </div>
+            </div>
           </ScrollAnimationWrapper>
         </div>
       </div>
