@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, GamepadIcon, MessageSquare, Zap, Brain, Users, Brush, Code, Wand2 } from 'lucide-react';
-import FloatingCharacter from './FloatingCharacter';
+import StaticCharacter from './StaticCharacter';
 
 interface Feature {
   title: string;
@@ -67,8 +67,8 @@ const VirgilCharacter = () => {
         repeatType: "reverse"
       }}
     >
-      <div className="w-full h-full relative">
-        <FloatingCharacter />
+      <div className="w-full h-full">
+        <StaticCharacter />
       </div>
     </motion.div>
   );
