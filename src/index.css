@@ -15,7 +15,7 @@
 
   :root {
     --pixel-size: 2px;
-    --grid-color: rgba(30, 144, 255, 0.1);
+    --grid-color: rgba(30, 144, 255, 0.08);
   }
 
   html {
@@ -35,16 +35,20 @@
   h1, .h1 {
     @apply font-pixel text-[44px] leading-tight;
     color: theme('colors.primary.lime');
-    text-shadow: 2px 2px theme('colors.secondary.blue');
+    text-shadow: 
+      2px 2px theme('colors.secondary.blue'),
+      0 0 10px theme('colors.primary.lime/30');
   }
 
   h2, .h2 {
     @apply font-sans font-bold text-[32px] leading-tight;
     color: theme('colors.secondary.blue');
+    text-shadow: 0 0 20px theme('colors.secondary.blue/30');
   }
 
   p, .body-text {
     @apply font-sans text-[18px] leading-relaxed;
+    text-shadow: 0 0 1px theme('colors.support.white/50');
   }
 
   ::-webkit-scrollbar {
@@ -57,7 +61,7 @@
     box-shadow: 
       var(--pixel-size) var(--pixel-size) 0 0 theme('colors.secondary.blue'),
       calc(var(--pixel-size) * -1) calc(var(--pixel-size) * -1) 0 0 theme('colors.primary.lime');
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
   }
 
   .pixel-border:hover {
@@ -70,10 +74,10 @@
   .cyber-glitch {
     position: relative;
     text-shadow: 
-      0.05em 0 0 theme('colors.secondary.blue'),
-      -0.025em -0.05em 0 theme('colors.primary.lime'),
-      0.025em 0.05em 0 theme('colors.secondary.cyan');
-    animation: glitch 500ms infinite;
+      2px 2px theme('colors.secondary.blue'),
+      -1px -1px theme('colors.primary.lime'),
+      0 0 8px currentColor;
+    animation: glitch 3s ease-in-out infinite;
   }
 
   .retro-card {
@@ -87,9 +91,10 @@
     );
     border: 1px solid theme('colors.secondary.blue');
     box-shadow: 
-      inset 0 0 20px theme('colors.secondary.blue'),
-      0 0 20px theme('colors.primary.lime');
+      inset 0 0 20px theme('colors.secondary.blue/30'),
+      0 0 20px theme('colors.primary.lime/30');
     transform-style: preserve-3d;
+    transition: all 0.3s ease;
   }
 
   .retro-card::before {
@@ -98,10 +103,11 @@
     inset: 0;
     background: linear-gradient(
       transparent 50%,
-      theme('colors.secondary.blue/20') 50%
+      theme('colors.secondary.blue/10') 50%
     );
     background-size: 100% 4px;
-    animation: scan 4s linear infinite;
+    animation: scan 8s linear infinite;
+    opacity: 0.5;
   }
 
   .floating-3d {
@@ -111,52 +117,28 @@
   }
 
   .floating-3d:hover {
-    transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+    transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
   }
 }
 
 @keyframes glitch {
-  0% {
+  0%, 100% {
     text-shadow: 
-      0.05em 0 0 theme('colors.secondary.blue'),
-      -0.025em -0.05em 0 theme('colors.primary.lime'),
-      0.025em 0.05em 0 theme('colors.secondary.cyan');
+      2px 2px theme('colors.secondary.blue'),
+      -1px -1px theme('colors.primary.lime'),
+      0 0 8px currentColor;
   }
-  14% {
+  33% {
     text-shadow: 
-      0.05em 0 0 theme('colors.secondary.blue'),
-      -0.025em -0.05em 0 theme('colors.primary.lime'),
-      0.025em 0.05em 0 theme('colors.secondary.cyan');
+      -2px -2px theme('colors.secondary.blue'),
+      1px 1px theme('colors.primary.lime'),
+      0 0 8px currentColor;
   }
-  15% {
+  66% {
     text-shadow: 
-      -0.05em -0.025em 0 theme('colors.secondary.blue'),
-      0.025em 0.025em 0 theme('colors.primary.lime'),
-      -0.05em -0.05em 0 theme('colors.secondary.cyan');
-  }
-  49% {
-    text-shadow: 
-      -0.05em -0.025em 0 theme('colors.secondary.blue'),
-      0.025em 0.025em 0 theme('colors.primary.lime'),
-      -0.05em -0.05em 0 theme('colors.secondary.cyan');
-  }
-  50% {
-    text-shadow: 
-      0.025em 0.05em 0 theme('colors.secondary.blue'),
-      0.05em 0 0 theme('colors.primary.lime'),
-      0 -0.05em 0 theme('colors.secondary.cyan');
-  }
-  99% {
-    text-shadow: 
-      0.025em 0.05em 0 theme('colors.secondary.blue'),
-      0.05em 0 0 theme('colors.primary.lime'),
-      0 -0.05em 0 theme('colors.secondary.cyan');
-  }
-  100% {
-    text-shadow: 
-      -0.025em 0 0 theme('colors.secondary.blue'),
-      -0.025em -0.025em 0 theme('colors.primary.lime'),
-      -0.025em -0.05em 0 theme('colors.secondary.cyan');
+      2px -2px theme('colors.secondary.blue'),
+      -1px 1px theme('colors.primary.lime'),
+      0 0 8px currentColor;
   }
 }
 
@@ -166,6 +148,27 @@
   }
   to {
     background-position: 0 100%;
+  }
+}
+
+.section-divider .light-flare {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    theme('colors.secondary.blue/20'),
+    theme('colors.primary.lime/20'),
+    transparent
+  );
+  animation: flare 8s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes flare {
+  0%, 100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
   }
 }
 
