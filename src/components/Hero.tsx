@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { ScrollAnimationWrapper, GlitchText, CyberCard } from './ScrollAnimations';
 import FloatingCharacter from './FloatingCharacter';
+import Logo from './Logo';
 import '../styles/fonts.css';
 
 const Hero: React.FC = () => {
@@ -11,21 +12,16 @@ const Hero: React.FC = () => {
       {/* Main Title */}
       <div className="w-full text-center mb-8 md:mb-12">
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
-          <h1 className="font-bold text-4xl relative">
-            <span className="font-pixelsplitter text-primary-lime text-4xl cyber-glitch">FREE</span>
-            <span className="font-pixelsplitter text-secondary-blue text-4xl cyber-glitch">WRITER</span>
-            <div className="absolute -inset-1 bg-secondary-blue/20 -z-10 blur-lg"></div>
-          </h1>
+          <Logo variant="default" />
         </ScrollAnimationWrapper>
       </div>
 
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Mobile FREEWRITER logo */}
-          <h1 className="block lg:hidden mb-6">
-            <span className="font-pixelsplitter text-4xl md:text-5xl text-secondary-blue cyber-glitch">FREE</span>
-            <span className="font-pixelsplitter text-4xl md:text-5xl text-primary-lime cyber-glitch">WRITER</span>
-          </h1>
+          <div className="block lg:hidden mb-6">
+            <Logo variant="large" />
+          </div>
 
           {/* Main Heading */}
           <ScrollAnimationWrapper animation="fadeUp">
