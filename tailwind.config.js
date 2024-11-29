@@ -9,8 +9,8 @@ export default {
           lime: '#D8F651',
         },
         secondary: {
-          blue: '#2191FB',
-          purple: '#4C2A85',
+          cyan: '#00FFFF',
+          blue: '#1E90FF',
         },
         support: {
           white: '#FFFFFF',

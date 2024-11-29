@@ -12,9 +12,9 @@ const Hero: React.FC = () => {
       <div className="w-full text-center mb-8 md:mb-12">
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
           <h1 className="font-bold text-4xl relative">
-            <span className="font-pixelsplitter text-[#D8F651] text-4xl cyber-glitch">FREE</span>
-            <span className="font-pixelsplitter text-[#490BF4] text-4xl cyber-glitch">WRITER</span>
-            <div className="absolute -inset-1 bg-primary-purple/20 -z-10 blur-lg"></div>
+            <span className="font-pixelsplitter text-primary-lime text-4xl cyber-glitch">FREE</span>
+            <span className="font-pixelsplitter text-secondary-blue text-4xl cyber-glitch">WRITER</span>
+            <div className="absolute -inset-1 bg-secondary-blue/20 -z-10 blur-lg"></div>
           </h1>
         </ScrollAnimationWrapper>
       </div>
@@ -23,8 +23,8 @@ const Hero: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Mobile FREEWRITER logo */}
           <h1 className="block lg:hidden mb-6">
-            <span className="font-pixelsplitter text-4xl md:text-5xl text-[#490BF4] cyber-glitch">FREE</span>
-            <span className="font-pixelsplitter text-4xl md:text-5xl text-[#D8F651] cyber-glitch">WRITER</span>
+            <span className="font-pixelsplitter text-4xl md:text-5xl text-secondary-blue cyber-glitch">FREE</span>
+            <span className="font-pixelsplitter text-4xl md:text-5xl text-primary-lime cyber-glitch">WRITER</span>
           </h1>
 
           {/* Main Heading */}
@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
 
           {/* Subheading */}
           <ScrollAnimationWrapper animation="fadeUp" delay={0.4}>
-            <h2 className="font-sans font-bold text-3xl text-support-gray mb-6">
+            <h2 className="font-sans font-bold text-3xl text-secondary-blue mb-6">
               Experience the future of writing with AI-powered assistance
             </h2>
           </ScrollAnimationWrapper>
@@ -79,10 +79,10 @@ const Hero: React.FC = () => {
           <ScrollAnimationWrapper animation="scale" delay={1}>
             <a
               href="#signup"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
-                       hover:bg-[#D8F651]/90 transition-colors duration-300 
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-secondary-blue rounded-lg 
+                       hover:bg-primary-lime/90 transition-colors duration-300 
                        retro-card floating-3d font-pixelsplitter text-xl
-                       font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20
+                       font-black tracking-widest shadow-xl border-2 border-secondary-blue/20
                        mb-4 sm:mb-8"
             >
               Coming Soon
@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         <ScrollAnimationWrapper animation="fadeIn" delay={0.2}>
-          <div className="absolute inset-0 bg-gradient-to-b from-primary-purple/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-secondary-blue/5 to-transparent" />
         </ScrollAnimationWrapper>
       </div>
     </section>

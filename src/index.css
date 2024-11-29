@@ -15,7 +15,7 @@
 
   :root {
     --pixel-size: 2px;
-    --grid-color: rgba(73, 11, 244, 0.05);
+    --grid-color: rgba(30, 144, 255, 0.1);
   }
 
   html {
@@ -34,10 +34,13 @@
 
   h1, .h1 {
     @apply font-pixel text-[44px] leading-tight;
+    color: theme('colors.primary.lime');
+    text-shadow: 2px 2px theme('colors.secondary.blue');
   }
 
   h2, .h2 {
     @apply font-sans font-bold text-[32px] leading-tight;
+    color: theme('colors.secondary.blue');
   }
 
   p, .body-text {
@@ -52,7 +55,7 @@
 @layer components {
   .pixel-border {
     box-shadow: 
-      var(--pixel-size) var(--pixel-size) 0 0 theme('colors.primary.purple'),
+      var(--pixel-size) var(--pixel-size) 0 0 theme('colors.secondary.blue'),
       calc(var(--pixel-size) * -1) calc(var(--pixel-size) * -1) 0 0 theme('colors.primary.lime');
     transition: all 0.2s ease;
   }
@@ -60,16 +63,16 @@
   .pixel-border:hover {
     transform: translate(calc(var(--pixel-size) * -1), calc(var(--pixel-size) * -1));
     box-shadow: 
-      calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 2) 0 0 theme('colors.primary.purple'),
+      calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 2) 0 0 theme('colors.secondary.blue'),
       calc(var(--pixel-size) * -2) calc(var(--pixel-size) * -2) 0 0 theme('colors.primary.lime');
   }
 
   .cyber-glitch {
     position: relative;
     text-shadow: 
-      0.05em 0 0 theme('colors.primary.purple'),
+      0.05em 0 0 theme('colors.secondary.blue'),
       -0.025em -0.05em 0 theme('colors.primary.lime'),
-      0.025em 0.05em 0 theme('colors.secondary.blue');
+      0.025em 0.05em 0 theme('colors.secondary.cyan');
     animation: glitch 500ms infinite;
   }
 
@@ -82,10 +85,10 @@
       calc(100% - 30px) 100%,
       0 100%
     );
-    border: 1px solid theme('colors.primary.purple');
+    border: 1px solid theme('colors.secondary.blue');
     box-shadow: 
-      inset 0 0 20px theme('colors.primary.purple'),
-      0 0 20px theme('colors.primary.purple');
+      inset 0 0 20px theme('colors.secondary.blue'),
+      0 0 20px theme('colors.primary.lime');
     transform-style: preserve-3d;
   }
 
@@ -95,7 +98,7 @@
     inset: 0;
     background: linear-gradient(
       transparent 50%,
-      theme('colors.primary.purple/20') 50%
+      theme('colors.secondary.blue/20') 50%
     );
     background-size: 100% 4px;
     animation: scan 4s linear infinite;
@@ -115,45 +118,45 @@
 @keyframes glitch {
   0% {
     text-shadow: 
-      0.05em 0 0 theme('colors.primary.purple'),
+      0.05em 0 0 theme('colors.secondary.blue'),
       -0.025em -0.05em 0 theme('colors.primary.lime'),
-      0.025em 0.05em 0 theme('colors.secondary.blue');
+      0.025em 0.05em 0 theme('colors.secondary.cyan');
   }
   14% {
     text-shadow: 
-      0.05em 0 0 theme('colors.primary.purple'),
+      0.05em 0 0 theme('colors.secondary.blue'),
       -0.025em -0.05em 0 theme('colors.primary.lime'),
-      0.025em 0.05em 0 theme('colors.secondary.blue');
+      0.025em 0.05em 0 theme('colors.secondary.cyan');
   }
   15% {
     text-shadow: 
-      -0.05em -0.025em 0 theme('colors.primary.purple'),
+      -0.05em -0.025em 0 theme('colors.secondary.blue'),
       0.025em 0.025em 0 theme('colors.primary.lime'),
-      -0.05em -0.05em 0 theme('colors.secondary.blue');
+      -0.05em -0.05em 0 theme('colors.secondary.cyan');
   }
   49% {
     text-shadow: 
-      -0.05em -0.025em 0 theme('colors.primary.purple'),
+      -0.05em -0.025em 0 theme('colors.secondary.blue'),
       0.025em 0.025em 0 theme('colors.primary.lime'),
-      -0.05em -0.05em 0 theme('colors.secondary.blue');
+      -0.05em -0.05em 0 theme('colors.secondary.cyan');
   }
   50% {
     text-shadow: 
-      0.025em 0.05em 0 theme('colors.primary.purple'),
+      0.025em 0.05em 0 theme('colors.secondary.blue'),
       0.05em 0 0 theme('colors.primary.lime'),
-      0 -0.05em 0 theme('colors.secondary.blue');
+      0 -0.05em 0 theme('colors.secondary.cyan');
   }
   99% {
     text-shadow: 
-      0.025em 0.05em 0 theme('colors.primary.purple'),
+      0.025em 0.05em 0 theme('colors.secondary.blue'),
       0.05em 0 0 theme('colors.primary.lime'),
-      0 -0.05em 0 theme('colors.secondary.blue');
+      0 -0.05em 0 theme('colors.secondary.cyan');
   }
   100% {
     text-shadow: 
-      -0.025em 0 0 theme('colors.primary.purple'),
+      -0.025em 0 0 theme('colors.secondary.blue'),
       -0.025em -0.025em 0 theme('colors.primary.lime'),
-      -0.025em -0.05em 0 theme('colors.secondary.blue');
+      -0.025em -0.05em 0 theme('colors.secondary.cyan');
   }
 }
 
