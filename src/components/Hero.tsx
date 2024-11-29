@@ -79,11 +79,9 @@ const Hero: React.FC = () => {
           <ScrollAnimationWrapper animation="scale" delay={1}>
             <a
               href="#signup"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary-lime text-secondary-blue rounded-lg 
-                       hover:bg-primary-lime/90 transition-colors duration-300 
-                       retro-card floating-3d font-pixelsplitter text-xl
-                       font-black tracking-widest shadow-xl border-2 border-secondary-blue/20
-                       mb-4 sm:mb-8"
+              className="btn-primary"
+              role="button"
+              aria-label="Sign up for early access"
             >
               Coming Soon
             </a>
