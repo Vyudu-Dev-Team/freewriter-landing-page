@@ -177,15 +177,16 @@ const Features: React.FC = () => {
         <p className="text-xl text-support-gray mb-8">
           Embark on a transformative writing journey with FreeWriter. Sign up now to experience a platform that combines the joy of storytelling with the thrill of gaming, all guided by your AI companion, Virgil. Unlock your creative potential and make writing an adventure worth pursuing.
         </p>
-        <a 
-          href="#signup" 
-          className="inline-flex items-center gap-2 px-8 py-4 bg-[#D8F651] text-[#490BF4] rounded-lg 
-                   hover:bg-[#D8F651]/90 transition-colors duration-300 
-                   retro-card floating-3d font-pixelsplitter text-xl
-                   font-black tracking-widest shadow-xl border-2 border-[#490BF4]/20"
-        >
-          Coming Soon
-        </a>
+        <div className="text-center mt-16">
+          <a 
+            href="#signup" 
+            className="btn-primary"
+            role="button"
+            aria-label="Sign up for early access"
+          >
+            Coming Soon
+          </a>
+        </div>
       </div>
       
       {/* Background Grid Animation */}
