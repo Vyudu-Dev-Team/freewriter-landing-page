@@ -5,37 +5,39 @@ const FloatingCharacter: React.FC = () => {
   const { scrollY } = useScroll();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
-  // Create dynamic scroll-based transforms with adjusted trigger points
-  const y = useTransform(scrollY, [0, 1000], [-50, 400]); // Start higher
-  const scale = useTransform(scrollY, [0, 300], [1.1, 0.7]); // Start slightly larger
-  const rotate = useTransform(scrollY, [0, 500], [0, -10]);
-  const perspective = useTransform(scrollY, [0, 500], [0, 1000]);
-  const translateZ = useTransform(scrollY, [0, 500], [0, -200]);
+  // Refined scroll-based transforms
+  const y = useTransform(scrollY, [0, 800], [-20, 300]); // Gentler initial position
+  const scale = useTransform(scrollY, [0, 400], [1.05, 0.85]); // More subtle scale change
+  const rotate = useTransform(scrollY, [0, 600], [0, -5]); // Reduced rotation
+  const perspective = useTransform(scrollY, [0, 500], [0, 800]);
+  const translateZ = useTransform(scrollY, [0, 500], [0, -100]); // Reduced Z translation
   
-  // Responsive spring physics
+  // Optimized spring physics for smoother motion
   const springY = useSpring(y, {
-    stiffness: 100,
-    damping: 30,
-    mass: 1
+    stiffness: 80, // Reduced stiffness for smoother movement
+    damping: 25,
+    mass: 1.2 // Increased mass for more weight
   });
   
   const springScale = useSpring(scale, {
-    stiffness: 200,
-    damping: 30
+    stiffness: 150,
+    damping: 35
   });
 
   const springRotate = useSpring(rotate, {
-    stiffness: 150,
-    damping: 25
+    stiffness: 120,
+    damping: 30
   });
   
-  // Floating animation
+  // Enhanced floating animation
   const floatingAnimation = {
-    y: [0, -10, 0],
+    y: [0, -8, 0], // Reduced float height
+    rotate: [-0.5, 0.5, -0.5], // Subtle rotation
     transition: {
-      duration: 4,
+      duration: 5, // Slower, more graceful movement
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: [0.45, 0, 0.55, 1], // Custom easing for natural movement
+      times: [0, 0.5, 1]
     }
   };
 
@@ -61,33 +63,34 @@ const FloatingCharacter: React.FC = () => {
       const centerX = canvas.width * 0.5;
       const centerY = canvas.height * 0.5;
       
-      // Responsive base radius
+      // Adjusted base radius for better proportion
       const baseRadius = Math.min(canvas.width, canvas.height) * 
-        (window.innerWidth < 768 ? 0.45 : 0.4); // Slightly larger on mobile
+        (window.innerWidth < 768 ? 0.42 : 0.38);
       
-      // Create multiple layers of aura
-      for (let layer = 0; layer < 3; layer++) {
-        const layerOffset = layer * 0.1;
+      // Enhanced aura layers
+      for (let layer = 0; layer < 4; layer++) { // Added an extra layer
+        const layerOffset = layer * 0.15; // Increased offset
         
-        const waveSpeed = 0.001;
-        const waveAmplitude = window.innerWidth < 768 ? 15 : 20; // Adjusted for mobile
+        const waveSpeed = 0.0008; // Slowed down wave movement
+        const waveAmplitude = window.innerWidth < 768 ? 12 : 15; // Reduced amplitude
         const layerRadius = baseRadius + 
           Math.sin(time * waveSpeed + layerOffset * Math.PI * 2) * waveAmplitude;
         
-        const numCircles = 8;
+        const numCircles = 10; // Increased number of circles
         for (let i = 0; i < numCircles; i++) {
-          const angle = (i / numCircles) * Math.PI * 2 + time * 0.001;
-          const wobbleX = Math.cos(angle) * (window.innerWidth < 768 ? 10 : 15);
-          const wobbleY = Math.sin(angle) * (window.innerWidth < 768 ? 10 : 15);
+          const angle = (i / numCircles) * Math.PI * 2 + time * 0.0008;
+          const wobbleX = Math.cos(angle) * (window.innerWidth < 768 ? 8 : 12);
+          const wobbleY = Math.sin(angle) * (window.innerWidth < 768 ? 8 : 12);
           
           const gradient = ctx.createRadialGradient(
             centerX + wobbleX, centerY + wobbleY, 0,
             centerX + wobbleX, centerY + wobbleY, layerRadius
           );
           
-          gradient.addColorStop(0, 'rgba(76, 42, 133, 0.15)');
-          gradient.addColorStop(0.5, 'rgba(76, 42, 133, 0.08)');
-          gradient.addColorStop(1, 'rgba(76, 42, 133, 0)');
+          // Updated colors to match new scheme
+          gradient.addColorStop(0, 'rgba(30, 144, 255, 0.12)'); // Dodger Blue
+          gradient.addColorStop(0.4, 'rgba(216, 246, 81, 0.08)'); // Lime
+          gradient.addColorStop(1, 'rgba(73, 11, 244, 0.02)'); // Deep Purple
           
           ctx.fillStyle = gradient;
           ctx.beginPath();
@@ -102,18 +105,18 @@ const FloatingCharacter: React.FC = () => {
         }
       }
       
-      // Responsive outer glow
+      // Enhanced outer glow
       const outerGlow = ctx.createRadialGradient(
-        centerX, centerY, baseRadius * 0.8,
-        centerX, centerY, baseRadius * 1.2
+        centerX, centerY, baseRadius * 0.9,
+        centerX, centerY, baseRadius * 1.3
       );
-      outerGlow.addColorStop(0, 'rgba(76, 42, 133, 0.12)');
-      outerGlow.addColorStop(0.5, 'rgba(76, 42, 133, 0.06)');
+      outerGlow.addColorStop(0, 'rgba(30, 144, 255, 0.1)');
+      outerGlow.addColorStop(0.5, 'rgba(216, 246, 81, 0.05)');
       outerGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
       
       ctx.fillStyle = outerGlow;
       ctx.beginPath();
-      ctx.arc(centerX, centerY, baseRadius * 1.2, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, baseRadius * 1.3, 0, Math.PI * 2);
       ctx.fill();
       
       time += 16;
@@ -142,9 +145,12 @@ const FloatingCharacter: React.FC = () => {
           transformStyle: "preserve-3d",
           translateZ
         }}
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ 
+          duration: 1.2,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
       >
         <motion.div
           className="relative w-full h-full"
@@ -170,7 +176,8 @@ const FloatingCharacter: React.FC = () => {
             loading="eager"
             style={{
               transformStyle: "preserve-3d",
-              backfaceVisibility: "hidden"
+              backfaceVisibility: "hidden",
+              filter: "drop-shadow(0 0 20px rgba(30, 144, 255, 0.2))" // Added subtle glow
             }}
           />
         </motion.div>
