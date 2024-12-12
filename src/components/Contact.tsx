@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 
 const Contact: React.FC = () => {
@@ -8,7 +8,7 @@ const Contact: React.FC = () => {
     newsletter: 'Yes'
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       // Replace this URL with your actual Zapier webhook URL
@@ -32,11 +32,12 @@ const Contact: React.FC = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   return (
@@ -57,49 +58,60 @@ const Contact: React.FC = () => {
               Embark on a transformative writing journey with FreeWriter. Experience a platform that combines the joy of storytelling with the thrill of gaming, all guided by your AI companion, Virgil. Unlock your creative potential and make writing an adventure worth pursuing.
             </p>
 
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+            <motion.form 
+              onSubmit={handleSubmit} 
+              className="max-w-md mx-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
               <div className="space-y-4">
-                <div>
+                <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     placeholder="Your Name"
                     required
-                    className="w-full px-4 py-2 rounded bg-gray-800 border border-primary-lime text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-lime"
+                    className="w-full px-4 py-2 rounded bg-gray-800 border border-primary-lime text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-lime transition-all duration-200"
                   />
-                </div>
-                <div>
+                </motion.div>
+                
+                <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     placeholder="Your Email"
                     required
-                    className="w-full px-4 py-2 rounded bg-gray-800 border border-primary-lime text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-lime"
+                    className="w-full px-4 py-2 rounded bg-gray-800 border border-primary-lime text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-lime transition-all duration-200"
                   />
-                </div>
-                <div>
+                </motion.div>
+                
+                <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
                   <select
                     name="newsletter"
                     value={formData.newsletter}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 rounded bg-gray-800 border border-primary-lime text-white focus:outline-none focus:ring-2 focus:ring-primary-lime"
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded bg-gray-800 border border-primary-lime text-white focus:outline-none focus:ring-2 focus:ring-primary-lime transition-all duration-200"
                   >
                     <option value="Yes">Yes, subscribe me to the newsletter</option>
                     <option value="No">No, thanks</option>
                   </select>
-                </div>
-                <button
+                </motion.div>
+
+                <motion.button
                   type="submit"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   className="w-full px-6 py-3 bg-primary-lime text-black font-bold rounded hover:bg-opacity-90 transition-colors duration-200"
                 >
                   Join the Adventure
-                </button>
+                </motion.button>
               </div>
-            </form>
+            </motion.form>
           </motion.div>
         </div>
       </div>
