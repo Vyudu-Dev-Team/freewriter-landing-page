@@ -11,8 +11,7 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Replace this URL with your actual Zapier webhook URL
-      const response = await fetch('YOUR_ZAPIER_WEBHOOK_URL', {
+      const response = await fetch('https://hooks.zapier.com/hooks/catch/18141255/2sz6t2x/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
