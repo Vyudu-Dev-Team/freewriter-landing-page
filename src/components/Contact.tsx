@@ -19,31 +19,47 @@ const Contact: React.FC = () => {
     };
 
     try {
-      console.log('Sending data to Zapier:', zapierPayload); // Debug log
+      console.log('Attempting to send data:', zapierPayload);
       
       const response = await fetch('https://hooks.zapier.com/hooks/catch/18141255/2sz6t2x/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
         },
+        mode: 'no-cors', // Add this to handle CORS
         body: JSON.stringify(zapierPayload)
       });
+
+      // Since we're using no-cors, we won't get a normal response
+      // Instead, we'll assume success if we get here without an error
+      console.log('Form submitted successfully');
+      setFormData({ name: '', email: '', newsletter: 'Yes' });
       
-      console.log('Zapier response status:', response.status); // Debug log
+      // Show success message to user
+      const successMessage = document.createElement('div');
+      successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
+      successMessage.textContent = 'Thank you for subscribing!';
+      document.body.appendChild(successMessage);
       
-      if (response.ok) {
-        const responseData = await response.text();
-        console.log('Zapier response:', responseData); // Debug log
-        alert('Thank you for subscribing!');
-        setFormData({ name: '', email: '', newsletter: 'Yes' });
-      } else {
-        console.error('Error response:', await response.text()); // Debug log
-        alert('Something went wrong. Please try again.');
-      }
+      // Remove the message after 3 seconds
+      setTimeout(() => {
+        successMessage.remove();
+      }, 3000);
+
     } catch (error) {
       console.error('Submission error:', error);
-      alert('Something went wrong. Please try again.');
+      
+      // Show error message to user
+      const errorMessage = document.createElement('div');
+      errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg';
+      errorMessage.textContent = 'Something went wrong. Please try again later.';
+      document.body.appendChild(errorMessage);
+      
+      // Remove the message after 3 seconds
+      setTimeout(() => {
+        errorMessage.remove();
+      }, 3000);
     }
   };
 
