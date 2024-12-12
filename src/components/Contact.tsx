@@ -10,23 +10,39 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Create the payload in the format Zapier expects
+    const zapierPayload = {
+      name: formData.name,
+      email: formData.email,
+      newsletter_subscription: formData.newsletter
+    };
+
     try {
+      console.log('Sending data to Zapier:', zapierPayload); // Debug log
+      
       const response = await fetch('https://hooks.zapier.com/hooks/catch/18141255/2sz6t2x/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(zapierPayload)
       });
       
+      console.log('Zapier response status:', response.status); // Debug log
+      
       if (response.ok) {
+        const responseData = await response.text();
+        console.log('Zapier response:', responseData); // Debug log
         alert('Thank you for subscribing!');
         setFormData({ name: '', email: '', newsletter: 'Yes' });
       } else {
+        console.error('Error response:', await response.text()); // Debug log
         alert('Something went wrong. Please try again.');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Submission error:', error);
       alert('Something went wrong. Please try again.');
     }
   };
