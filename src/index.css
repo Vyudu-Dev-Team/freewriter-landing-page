@@ -23,7 +23,7 @@
   }
   
   body {
-    @apply bg-support-black text-support-white cursor-none font-sans text-lg;
+    @apply bg-support-black text-support-white font-sans text-lg;
     image-rendering: pixelated;
     background-image: 
       linear-gradient(var(--grid-color) 1px, transparent 1px),
