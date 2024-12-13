@@ -25,14 +25,14 @@ const Contact: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        mode: 'no-cors', // Add this to handle CORS
         body: JSON.stringify(zapierPayload)
       });
 
-      // Since we're using no-cors, we won't get a normal response
-      // Instead, we'll assume success if we get here without an error
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
       console.log('Form submitted successfully');
       setFormData({ name: '', email: '', newsletter: 'Yes' });
       
