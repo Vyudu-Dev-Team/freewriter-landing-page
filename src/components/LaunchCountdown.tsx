@@ -11,16 +11,9 @@ interface TimeLeft {
 const calculateTimeLeft = () => {
   const now = new Date().getTime();
   
-  // Store launch date in localStorage if not set
-  let launchDate = localStorage.getItem('launchDate');
-  if (!launchDate) {
-    const date = new Date();
-    date.setDate(date.getDate() + 8);
-    launchDate = date.getTime().toString();
-    localStorage.setItem('launchDate', launchDate);
-  }
-
-  const difference = parseInt(launchDate) - now;
+  // Set fixed launch date to January 20th, 2025
+  const launchDate = new Date('2025-01-20T00:00:00-05:00').getTime();
+  const difference = launchDate - now;
 
   if (difference > 0) {
     return {
