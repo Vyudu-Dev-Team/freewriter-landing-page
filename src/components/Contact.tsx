@@ -37,22 +37,27 @@ const Contact: React.FC = () => {
     };
 
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbyHGDj3Zcr1gq6neFh5YxqihNmCyX6C1EaR9UX4bhwclAWMJddRE0K-3Ui0QffbFpi_Hw/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbwFpowPWc10YJ0PrlIAx9M8n_ECnAsyWRfMu9CUHzCCo17sxoSNzPcYhf2J5LDnE-C3TA/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
-        mode: 'no-cors'
+        mode: 'no-cors', // This is important for Google Apps Script
+        redirect: 'follow' // Handle redirects automatically
       });
 
-      // With no-cors, we won't get a detailed response, so we'll assume success if we get here
+      // Since we're using no-cors, we won't get a detailed response
+      // We'll assume success if we get here without an error
       setFormStatus({
         isSubmitting: false,
         isSuccess: true,
         error: null
       });
       setFormData({ name: '', email: '', newsletter: 'Yes' });
+
+      // Check your Google Sheet to verify the data was added
+      console.log('Form submitted successfully');
 
       setTimeout(() => {
         setFormStatus(prev => ({ ...prev, isSuccess: false }));
