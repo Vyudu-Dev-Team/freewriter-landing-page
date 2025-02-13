@@ -7,6 +7,7 @@ import Hero from './components/Hero';
 import LaunchCountdown from './components/LaunchCountdown';
 import Sections from './components/Sections';
 import Contact from './components/Contact';
+import FloatingButton from './components/FloatingButton';
 
 const App: React.FC = () => {
   return (
@@ -15,12 +16,13 @@ const App: React.FC = () => {
       <Character />
       <Cursor />
       <Navigation />
+      <FloatingButton />
       
       <main className="relative z-10">
         <Hero />
+        <Contact />
         <LaunchCountdown />
         <Sections />
-        <Contact />
       </main>
     </div>
   );

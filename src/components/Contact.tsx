@@ -1,17 +1,35 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+interface FormData {
+  name: string;
+  email: string;
+  newsletter: string;
+}
+
+interface FormStatus {
+  isSubmitting: boolean;
+  isSuccess: boolean;
+  error: string | null;
+}
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     newsletter: 'Yes'
   });
 
+  const [formStatus, setFormStatus] = useState<FormStatus>({
+    isSubmitting: false,
+    isSuccess: false,
+    error: null
+  });
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setFormStatus({ isSubmitting: true, isSuccess: false, error: null });
     
-    // Create the payload in the format Zapier expects
     const zapierPayload = {
       name: formData.name,
       email: formData.email,
@@ -19,8 +37,7 @@ const Contact: React.FC = () => {
     };
 
     try {
-      console.log('Attempting to send data:', zapierPayload);
-      
+      // First try Zapier webhook
       const response = await fetch('https://hooks.zapier.com/hooks/catch/18141255/2sz6t2x/', {
         method: 'POST',
         headers: {
@@ -30,36 +47,54 @@ const Contact: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Primary submission failed');
       }
 
-      console.log('Form submitted successfully');
+      // Success handling
+      setFormStatus({
+        isSubmitting: false,
+        isSuccess: true,
+        error: null
+      });
       setFormData({ name: '', email: '', newsletter: 'Yes' });
-      
-      // Show success message to user
-      const successMessage = document.createElement('div');
-      successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
-      successMessage.textContent = 'Thank you for subscribing!';
-      document.body.appendChild(successMessage);
-      
-      // Remove the message after 3 seconds
+
+      // Reset success message after 5 seconds
       setTimeout(() => {
-        successMessage.remove();
-      }, 3000);
+        setFormStatus(prev => ({ ...prev, isSuccess: false }));
+      }, 5000);
 
     } catch (error) {
       console.error('Submission error:', error);
       
-      // Show error message to user
-      const errorMessage = document.createElement('div');
-      errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg';
-      errorMessage.textContent = 'Something went wrong. Please try again later.';
-      document.body.appendChild(errorMessage);
-      
-      // Remove the message after 3 seconds
-      setTimeout(() => {
-        errorMessage.remove();
-      }, 3000);
+      // Try backup submission method
+      try {
+        const backupResponse = await fetch('https://api.freewriter.com/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(zapierPayload)
+        });
+
+        if (!backupResponse.ok) {
+          throw new Error('Backup submission also failed');
+        }
+
+        // Success handling for backup submission
+        setFormStatus({
+          isSubmitting: false,
+          isSuccess: true,
+          error: null
+        });
+        setFormData({ name: '', email: '', newsletter: 'Yes' });
+
+      } catch (backupError) {
+        setFormStatus({
+          isSubmitting: false,
+          isSuccess: false,
+          error: 'Unable to submit form. Please try again later or contact support.'
+        });
+      }
     }
   };
 
@@ -76,68 +111,97 @@ const Contact: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-gray-900/90 p-12 rounded-lg shadow-2xl backdrop-blur-sm relative z-10">
-            <h2 className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6">
-              Start Your FreeWriter Adventure Today
-            </h2>
-            
-            <p className="text-xl text-white mb-8">
-              Embark on a transformative writing journey with FreeWriter. Experience a platform that combines the joy of storytelling with the thrill of gaming, all guided by your AI companion, Virgil.
-            </p>
-
-            <form 
-              onSubmit={handleSubmit} 
-              className="max-w-md mx-auto relative z-20"
-              style={{ cursor: 'auto' }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              <div className="space-y-6">
-                <div>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Your Name"
-                    required
-                    className="w-full px-6 py-4 rounded-lg bg-gray-800 border-2 border-primary-lime text-white placeholder-gray-300 focus:outline-none focus:border-white text-lg"
-                    style={{ cursor: 'text' }}
-                  />
-                </div>
-                
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Your Email"
-                    required
-                    className="w-full px-6 py-4 rounded-lg bg-gray-800 border-2 border-primary-lime text-white placeholder-gray-300 focus:outline-none focus:border-white text-lg"
-                    style={{ cursor: 'text' }}
-                  />
-                </div>
-                
-                <div>
-                  <select
-                    name="newsletter"
-                    value={formData.newsletter}
-                    onChange={handleInputChange}
-                    className="w-full px-6 py-4 rounded-lg bg-gray-800 border-2 border-primary-lime text-white focus:outline-none focus:border-white text-lg appearance-none"
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <option value="Yes">Yes, subscribe me to the newsletter</option>
-                    <option value="No">No, thanks</option>
-                  </select>
-                </div>
+              <h2 className="font-pixelsplitter text-3xl md:text-4xl text-primary-lime mb-6">
+                Join the FreeWriter Community
+              </h2>
+              
+              <p className="text-xl text-white mb-8">
+                Start your writing journey today with FreeWriter. Get early access, writing tips, and updates delivered straight to your inbox.
+              </p>
 
-                <button
-                  type="submit"
-                  className="w-full px-8 py-4 bg-primary-lime text-black font-bold rounded-lg text-lg hover:opacity-90 transition-opacity"
-                  style={{ cursor: 'pointer' }}
-                >
-                  Join the Adventure
-                </button>
-              </div>
-            </form>
+              <form 
+                onSubmit={handleSubmit} 
+                className="max-w-md mx-auto relative z-20"
+              >
+                <div className="space-y-6">
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your Name"
+                      required
+                      disabled={formStatus.isSubmitting}
+                      className="w-full px-6 py-4 rounded-lg bg-gray-800 border-2 border-primary-lime text-white placeholder-gray-300 focus:outline-none focus:border-white text-lg disabled:opacity-50"
+                    />
+                  </div>
+                  
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Your Email"
+                      required
+                      disabled={formStatus.isSubmitting}
+                      className="w-full px-6 py-4 rounded-lg bg-gray-800 border-2 border-primary-lime text-white placeholder-gray-300 focus:outline-none focus:border-white text-lg disabled:opacity-50"
+                    />
+                  </div>
+                  
+                  <div>
+                    <select
+                      name="newsletter"
+                      value={formData.newsletter}
+                      onChange={handleInputChange}
+                      disabled={formStatus.isSubmitting}
+                      className="w-full px-6 py-4 rounded-lg bg-gray-800 border-2 border-primary-lime text-white focus:outline-none focus:border-white text-lg appearance-none disabled:opacity-50"
+                    >
+                      <option value="Yes">Yes, subscribe me to the newsletter</option>
+                      <option value="No">No, thanks</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={formStatus.isSubmitting}
+                    className="w-full px-8 py-4 bg-primary-lime text-black font-bold rounded-lg text-lg hover:opacity-90 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {formStatus.isSubmitting ? 'Submitting...' : 'Join the Adventure'}
+                  </button>
+                </div>
+              </form>
+
+              <AnimatePresence>
+                {formStatus.error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="mt-4 p-4 bg-red-500/90 text-white rounded-lg"
+                  >
+                    {formStatus.error}
+                  </motion.div>
+                )}
+
+                {formStatus.isSuccess && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="mt-4 p-4 bg-green-500/90 text-white rounded-lg"
+                  >
+                    Thank you for subscribing! We'll be in touch soon.
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           </div>
         </div>
       </div>
