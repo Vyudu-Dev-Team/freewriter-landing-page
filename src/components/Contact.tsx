@@ -30,35 +30,29 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setFormStatus({ isSubmitting: true, isSuccess: false, error: null });
     
-    const zapierPayload = {
+    const payload = {
       name: formData.name,
       email: formData.email,
       newsletter_subscription: formData.newsletter
     };
 
     try {
-      const response = await fetch('https://hooks.zapier.com/hooks/catch/18141255/2sz6t2x/', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyHGDj3Zcr1gq6neFh5YxqihNmCyX6C1EaR9UX4bhwclAWMJddRE0K-3Ui0QffbFpi_Hw/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
-        body: JSON.stringify(zapierPayload)
+        body: JSON.stringify(payload),
+        mode: 'cors'
       });
 
-      if (response.status === 404) {
-        throw new Error('Our subscription service is being updated. Please try again in 24 hours or contact support at support@freewriter.com');
+      const result = await response.json();
+      
+      if (result.status === 'error') {
+        throw new Error(result.message || 'Failed to submit form');
       }
 
-      if (!response.ok) {
-        throw new Error('Unable to process your subscription at this time. Please try again later.');
-      }
-
-      const responseText = await response.text();
-      if (responseText.includes('unsubscribe')) {
-        throw new Error('The subscription service is temporarily unavailable. Please try again in a few minutes.');
-      }
-
+      // Success
       setFormStatus({
         isSubmitting: false,
         isSuccess: true,
@@ -75,7 +69,9 @@ const Contact: React.FC = () => {
       setFormStatus({
         isSubmitting: false,
         isSuccess: false,
-        error: error instanceof Error ? error.message : 'Unable to submit form. Please try again later.'
+        error: error instanceof Error 
+          ? error.message 
+          : 'Unable to submit form. Please try again later.'
       });
     }
   };
