@@ -11,9 +11,16 @@ interface TimeLeft {
 const calculateTimeLeft = () => {
   const now = new Date().getTime();
   
-  // Set fixed launch date to January 20th, 2025
-  const launchDate = new Date('2025-01-20T00:00:00-05:00').getTime();
-  const difference = launchDate - now;
+  // Set launch date to 21 days, 21 hours, 21 minutes, and 21 seconds from February 12, 2025 23:29:08
+  const baseDate = new Date('2025-02-12T23:29:08-05:00').getTime();
+  const targetDate = baseDate + (
+    (21 * 24 * 60 * 60 * 1000) + // 21 days
+    (21 * 60 * 60 * 1000) +      // 21 hours
+    (21 * 60 * 1000) +           // 21 minutes
+    (21 * 1000)                   // 21 seconds
+  );
+  
+  const difference = targetDate - now;
 
   if (difference > 0) {
     return {

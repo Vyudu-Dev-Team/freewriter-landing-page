@@ -41,12 +41,17 @@ const Contact: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(zapierPayload)
       });
 
+      if (response.status === 404) {
+        throw new Error('Our subscription service is being updated. Please try again in 24 hours or contact support at support@freewriter.com');
+      }
+
       if (!response.ok) {
-        throw new Error('Submission failed. Please check your internet connection and try again.');
+        throw new Error('Unable to process your subscription at this time. Please try again later.');
       }
 
       const responseText = await response.text();
