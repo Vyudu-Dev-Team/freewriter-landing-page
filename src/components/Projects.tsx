@@ -115,20 +115,6 @@ const FeaturePreview: React.FC = () => {
             );
           })}
         </div>
-
-        {/* Call to Action */}
-        <ScrollAnimationWrapper animation="scale" delay={1.2}>
-          <div className="text-center mt-16">
-            <a 
-              href="#signup" 
-              className="btn-primary"
-              role="button"
-              aria-label="Sign up for early access"
-            >
-              Coming Soon
-            </a>
-          </div>
-        </ScrollAnimationWrapper>
       </div>
 
       {/* Animated Background */}

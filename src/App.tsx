@@ -8,6 +8,7 @@ import LaunchCountdown from './components/LaunchCountdown';
 import Sections from './components/Sections';
 import Contact from './components/Contact';
 import FloatingButton from './components/FloatingButton';
+import ScrollToTop from './components/ScrollToTop';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
       <Cursor />
       <Navigation />
       <FloatingButton />
+      <ScrollToTop />
       
       <main className="relative z-10">
         <Hero />

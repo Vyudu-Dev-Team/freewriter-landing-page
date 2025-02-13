@@ -37,7 +37,6 @@ const Contact: React.FC = () => {
     };
 
     try {
-      // First try Zapier webhook
       const response = await fetch('https://hooks.zapier.com/hooks/catch/18141255/2sz6t2x/', {
         method: 'POST',
         headers: {
@@ -47,10 +46,14 @@ const Contact: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Primary submission failed');
+        throw new Error('Submission failed. Please check your internet connection and try again.');
       }
 
-      // Success handling
+      const responseText = await response.text();
+      if (responseText.includes('unsubscribe')) {
+        throw new Error('The subscription service is temporarily unavailable. Please try again in a few minutes.');
+      }
+
       setFormStatus({
         isSubmitting: false,
         isSuccess: true,
@@ -58,43 +61,17 @@ const Contact: React.FC = () => {
       });
       setFormData({ name: '', email: '', newsletter: 'Yes' });
 
-      // Reset success message after 5 seconds
       setTimeout(() => {
         setFormStatus(prev => ({ ...prev, isSuccess: false }));
       }, 5000);
 
     } catch (error) {
       console.error('Submission error:', error);
-      
-      // Try backup submission method
-      try {
-        const backupResponse = await fetch('https://api.freewriter.com/subscribe', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(zapierPayload)
-        });
-
-        if (!backupResponse.ok) {
-          throw new Error('Backup submission also failed');
-        }
-
-        // Success handling for backup submission
-        setFormStatus({
-          isSubmitting: false,
-          isSuccess: true,
-          error: null
-        });
-        setFormData({ name: '', email: '', newsletter: 'Yes' });
-
-      } catch (backupError) {
-        setFormStatus({
-          isSubmitting: false,
-          isSuccess: false,
-          error: 'Unable to submit form. Please try again later or contact support.'
-        });
-      }
+      setFormStatus({
+        isSubmitting: false,
+        isSuccess: false,
+        error: error instanceof Error ? error.message : 'Unable to submit form. Please try again later.'
+      });
     }
   };
 
